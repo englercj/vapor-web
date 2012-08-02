@@ -7,19 +7,37 @@ class Install extends AppModel {
 
   //Save database configuration
   function saveDb($data = array()) {
-    $config = APP . 'Config/database.php';
-    $template = APP . 'Config/database.php.default';
-    
-    $tokens = array(
-		 'datasource' => '%datasource%',
-		 'host' => '%host%',
-		 'port' => '%port%',
-		 'login' => '%login%',
-		 'password' => '%password%',
-		 'database' => '%database%',
-		 'prefix' => '%prefix%',
-		 'encoding' => '%encoding%'
-		 );
+    saveX(array(
+		'datasource' => '%datasource%',
+		'host' => '%host%',
+		'port' => '%port%',
+		'login' => '%login%',
+		'password' => '%password%',
+		'database' => '%database%',
+		'prefix' => '%prefix%',
+		'encoding' => '%encoding%'
+		),
+	  $data,
+	  'database'
+	  );
+  }
+
+  function saveEmail($data = array()) {
+    saveX(array(
+		'from' => '%from%',
+		'host' => '%host%',
+		'port' => '%port%',
+		'username' => '%username%',
+		'password' => '%password%',
+		),
+	  $data,
+	  'email'
+	  );
+  }
+
+  function saveX($tokens, $data, $which) {
+    $config = APP . 'Config/' . $which . '.php';
+    $template = APP . 'Config/' . $which . '.php.default';
 
     $new_file = implode(file($template));
 
