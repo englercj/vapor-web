@@ -179,3 +179,8 @@ CakeLog::config('error', array(
 	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
 	'file' => 'error',
 ));
+
+/**
+ * Load Vapor configuration file
+ */
+Configure::load('vapor');
