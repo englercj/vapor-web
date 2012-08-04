@@ -7,7 +7,7 @@ class Install extends AppModel {
 
   //Save database configuration
   function saveDb($data = array()) {
-    saveX(array(
+    $this->saveX(array(
 		'datasource' => '%datasource%',
 		'host' => '%host%',
 		'port' => '%port%',
@@ -23,7 +23,7 @@ class Install extends AppModel {
   }
 
   function saveEmail($data = array()) {
-    saveX(array(
+    $this->saveX(array(
 		'from' => '%from%',
 		'host' => '%host%',
 		'port' => '%port%',
