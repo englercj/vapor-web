@@ -30,20 +30,40 @@ class InstallController extends AppController {
   //installs database schema and static data
   function database() {
     $this->layout = 'install';
+
+    if($this->request->is('post')) {
+      $this->Install->saveDb($this->data);
+    }
   }
 
   //installs SMTP configuration
   function email() {
     $this->layout = 'install';
+
+    if($this->request->is('post')) {
+      $this->Install->saveEmail($this->data);
+    }
   }
 
   //installs the superuser
   function superuser() {
     $this->layout = 'install';
+
+    if($this->request->is('post')) {
+      $this->loadModel('User');
+      $this->data['user_id'] = 1; //superuser
+      $this->User->save($this->data);
+    }
   }
 
   //installs a server
   function server() {
     $this->layout = 'install';
+
+    if($this->request->is('post')) {
+      $this->loadModel('Server');
+
+      $this->Server->save($this->data);
+    }
   }
 }
