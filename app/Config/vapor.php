@@ -1,4 +1,7 @@
+<?php
 /*
  * Vapor.option: A Vapor option
  */
-Configure::write('Vapor.option', 'value');
+$config['Vapor'] = array();
+
+?>
