@@ -3,10 +3,23 @@
 ## Setup Steps
 
  - Randomly Generate Security.salt & Security.cipherSeed
- - Database Config
- - Email Config
- - SuperUser Config
- - Add a server
+   - Not sure how yet...
+ - Gather DB config info
+   - Save `database.php` config
+   - Exec `Config/Sql/schema.sql`
+   - Exec `Config/Schema/db_acl.sql`
+   - Insert static data files (`Config/Sql/*.dat`)
+   - Insert SuperUser Group (`Group->insert()`)
+   - Create ACOs using AclComponent
+     - `$this->Acl->Aco->create(array('parent_id' => null, 'alias' => 'controllers'));`
+     - `$this->Acl->Aco->save();`
+ - Gather Email config info
+   - Save `email.php` config
+   - Offer option to send a test email
+ - Gather username/password for SuperUser
+   - Add user via `User->add()`
+ - Gather managed server info
+   - Add via `Server->add()`
 
 ## Setup Needs
 
