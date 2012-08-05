@@ -32,7 +32,55 @@ class InstallController extends AppController {
     $this->layout = 'install';
 
     if($this->request->is('post')) {
-      $this->Install->saveDb($this->data);
+      //try to connect to DB
+      $link = mysql_connect(
+			    $this->data['host'],
+			    $this->data['login'],
+			    $this->data['password']
+			    );
+      //if connection failed
+      if (!$link) {
+	$result = mysql_error();
+      } else {
+	$dbcheck = mysql_select_db($this->data['database']);
+	//if db doesn't exist
+	if (!$dbcheck) {
+	  $result = mysql_error();
+	} else {
+	  //the settings are correct, save and open a handle
+	  $this->Install->saveDb($this->data);
+	  $db = new mysqli($this->data['host'],
+			   $this->data['login'],
+			   $this->data['password'],
+			   $this->data['database']
+			   );
+
+	  //execute SQL files
+	  $this->Install->execSqlFile($db, APP . 'Config/Sql/schema.sql');
+	  $this->Install->execSqlFile($db, App . 'Config/Schema/db_acl.sql');
+
+	  //insert static data files
+	  $this->Install->execSqlFile($db, APP . 'Config/Sql/engines.sql');
+	  $this->Install->execSqlFile($db, APP . 'Config/Sql/games.sql');
+
+	  //insert SuperUser Group
+	  $this->loadModel('Group');
+	  $this->Group->save(array('name' => 'SuperUser'));
+
+	  //add base ACO
+	  $this->Acl->Aco->create(array(
+					'parent_id' => null,
+					'alias' => 'controllers'
+					)
+				  );
+	  $this->Acl->Aco->save();
+
+	  //give superuser access to all ACOs
+	  $group = $this->Group;
+	  $group->id = 1;
+	  $this->Acl->allow($group, 'controllers');
+	}
+      }
     }
   }
 
