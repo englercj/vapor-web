@@ -18,4 +18,8 @@ class InstallController extends AppController {
     
     /* Check environment */
   }
+
+  function createSchema() {
+    
+  }
 }

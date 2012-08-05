@@ -5,6 +5,11 @@ class Install extends AppModel {
   public $name = 'Install';
   public $useTable = false;
 
+  //Create database Schema
+  function createSchema() {
+    $test = $this->execSqlScript($db, APP . 'Config/Sql/schema.sql');
+  }
+
   //Save database configuration
   function saveDb($data = array()) {
     $this->saveX(array(
@@ -22,6 +27,7 @@ class Install extends AppModel {
 	  );
   }
 
+  //Save email configuration
   function saveEmail($data = array()) {
     $this->saveX(array(
 		'from' => '%from%',
@@ -49,5 +55,16 @@ class Install extends AppModel {
     fwrite($fp, $str, strlen($str));
 
     return $str;
+  }
+
+  function execSqlScript($db, $file) {
+    $statements = file_get_contents($file);
+    $statements = explode(';', $statements);
+    
+    foreach ($statements as $statement) {
+      if (trim($statement) != '') {
+	$db->query($statement);
+      }
+    }
   }
 }

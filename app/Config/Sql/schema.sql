@@ -27,15 +27,13 @@ CREATE TABLE IF NOT EXISTS servers (
        PRIMARY KEY(id)
 );
 
--- Static Data Tables
+-- Static Tables
 CREATE TABLE IF NOT EXISTS engines (
        id INT(11) NOT NULL AUTO_INCREMENT,
        name VARCHAR(100) NOT NULL,
        icon VARCHAR(255) NOT NULL,
        PRIMARY KEY(id)
 );
-
-LOAD DATA FROM INFILE 'engines.dat';
 
 CREATE TABLE IF NOT EXISTS games (
        id INT(11) NOT NULL AUTO_INCREMENT,
@@ -51,4 +49,7 @@ CREATE TABLE IF NOT EXISTS games (
        FOREIGN KEY(engine_id) REFERENCES engines(id)
 );
 
-LOAD DATA FROM INFILE 'games.dat';
+-- DELETE FROM engines;
+-- LOAD DATA INFILE './engines.dat' INTO TABLE engines;
+-- DELETE FROM games;
+-- LOAD DATA INFILE './games.dat' INTO TABLE games;
