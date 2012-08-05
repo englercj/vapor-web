@@ -1,5 +1,13 @@
 # Vapor Control Panel, Web Interface (under development)
 
+## Setup Steps
+
+ - Randomly Generate Security.salt & Security.cipherSeed
+ - Database Config
+ - Email Config
+ - SuperUser Config
+ - Add a server
+
 ## Setup Needs
 
  - Database Config
