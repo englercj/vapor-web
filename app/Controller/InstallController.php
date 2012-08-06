@@ -31,16 +31,19 @@ class InstallController extends AppController {
   function database() {
     $this->layout = 'install';
 
-    if($this->request->is('post')) {
+    if($this->request->isAjax()) {
+      $this->disableCache();
+
       //try to connect to DB
-      $link = mysql_connect(
-			    $this->data['host'],
+      $link = mysql_connect($this->data['host'],
 			    $this->data['login'],
-			    $this->data['password']
-			    );
+			    $this->data['password']);
       //if connection failed
       if (!$link) {
-	$result = mysql_error();
+	$result = array(
+			'success' => false,
+			'error' => mysql_error()
+			);
       } else {
 	$dbcheck = mysql_select_db($this->data['database']);
 	//if db doesn't exist
@@ -52,8 +55,7 @@ class InstallController extends AppController {
 	  $db = new mysqli($this->data['host'],
 			   $this->data['login'],
 			   $this->data['password'],
-			   $this->data['database']
-			   );
+			   $this->data['database']);
 
 	  //execute SQL files
 	  $this->Install->execSqlFile($db, APP . 'Config/Sql/schema.sql');
@@ -79,8 +81,14 @@ class InstallController extends AppController {
 	  $group = $this->Group;
 	  $group->id = 1;
 	  $this->Acl->allow($group, 'controllers');
+
+	  //setup result
+	  $result = array('success' => true);
 	}
       }
+
+      return new CakeResponse(array('body' => json_encode($result)),
+			      'type' => 'json');
     }
   }
 
@@ -88,8 +96,14 @@ class InstallController extends AppController {
   function email() {
     $this->layout = 'install';
 
-    if($this->request->is('post')) {
+    if($this->request->isAjax()) {
+      $this->disableCache();
+
       $this->Install->saveEmail($this->data);
+
+      $result = array('success' => true);
+      return new CakeResponse(array('body' => json_encode($result)),
+			      'type' => 'json');
     }
   }
 
@@ -97,10 +111,17 @@ class InstallController extends AppController {
   function superuser() {
     $this->layout = 'install';
 
-    if($this->request->is('post')) {
+    if($this->request->isAjax()) {
+      $this->disableCache();
+
       $this->loadModel('User');
-      $this->data['user_id'] = 1; //superuser
-      $this->User->save($this->data);
+
+      $this->data['group_id'] = 1; //superuser
+      $user = $this->User->save($this->data);
+
+      $result = array('success' => !!$user);
+      return new CakeResponse(array('body' => json_encode($result)),
+			      'type' => 'json');
     }
   }
 
@@ -108,10 +129,16 @@ class InstallController extends AppController {
   function server() {
     $this->layout = 'install';
 
-    if($this->request->is('post')) {
+    if($this->request->isAjax()) {
+      $this->disableCache();
+
       $this->loadModel('Server');
 
-      $this->Server->save($this->data);
+      $server = $this->Server->save($this->data);
+
+      $result = array('success' => !!$server);
+      return new CakeResponse(array('body' => json_encode($result)),
+			      'type' => 'json');
     }
   }
 }
