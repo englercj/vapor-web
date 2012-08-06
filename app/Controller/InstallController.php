@@ -29,9 +29,11 @@ class InstallController extends AppController {
 
   //installs database schema and static data
   function database() {
-    $this->layout = 'install';
-
-    if($this->request->isAjax()) {
+    if(!$this->request->isAjax()) {
+      $this->layout = 'install';
+    } else if($this->request->is('get')) {
+      $this->layout = 'ajax';
+    } else if($this->request->is('post')) {
       $this->disableCache();
 
       //try to connect to DB
@@ -94,9 +96,11 @@ class InstallController extends AppController {
 
   //installs SMTP configuration
   function email() {
-    $this->layout = 'install';
-
-    if($this->request->isAjax()) {
+    if(!$this->request->isAjax()) {
+      $this->layout = 'install';
+    } else if($this->request->is('get')) {
+      $this->layout = 'ajax';
+    } else if($this->request->is('post')) {
       $this->disableCache();
 
       $this->Install->saveEmail($this->data);
@@ -109,9 +113,11 @@ class InstallController extends AppController {
 
   //installs the superuser
   function superuser() {
-    $this->layout = 'install';
-
-    if($this->request->isAjax()) {
+    if(!$this->request->isAjax()) {
+      $this->layout = 'install';
+    } else if($this->request->is('get')) {
+      $this->layout = 'ajax';
+    } else if($this->request->is('post')) {
       $this->disableCache();
 
       $this->loadModel('User');
@@ -127,9 +133,11 @@ class InstallController extends AppController {
 
   //installs a server
   function server() {
-    $this->layout = 'install';
-
-    if($this->request->isAjax()) {
+    if(!$this->request->isAjax()) {
+      $this->layout = 'install';
+    } else if($this->request->is('get')) {
+      $this->layout = 'ajax';
+    } else if($this->request->is('post')) {
       $this->disableCache();
 
       $this->loadModel('Server');
