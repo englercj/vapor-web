@@ -8,7 +8,8 @@
    - Save `database.php` config
    - Exec `Config/Sql/schema.sql`
    - Exec `Config/Schema/db_acl.sql`
-   - Insert static data files (`Config/Sql/*.dat`)
+   - Exec `Config/Sql/engines.sql`
+   - Exec `Config/Sql/games.sql`
    - Insert SuperUser Group (`Group->insert()`)
    - Create ACOs using AclComponent
      - `$this->Acl->Aco->create(array('parent_id' => null, 'alias' => 'controllers'));`
