@@ -50,7 +50,10 @@ class InstallController extends AppController {
 	$dbcheck = mysql_select_db($this->data['database']);
 	//if db doesn't exist
 	if (!$dbcheck) {
-	  $result = mysql_error();
+	  $result = array(
+			  'success' => false,
+			  'error' => mysql_error()
+			  );
 	} else {
 	  //the settings are correct, save and open a handle
 	  $this->Install->saveDb($this->data);
