@@ -13,6 +13,7 @@
             });
         });
         
+        //initialize progressbars
         $('.progressbar').progressbar();
     });
 })(jQuery, window);
