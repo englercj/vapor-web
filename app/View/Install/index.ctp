@@ -1,7 +1,7 @@
-<div class="progressbar" data-value="55"></div>
+<div class="progressbar" data-value="20"></div>
 <span class="progress-text">Step 1 of 5: Environment Check</span>
 
-<p>First off lets check your environment.</p>
+<p>Before we start, let's ensure your environment is setup correctly.</p>
 
 <?php
     $fail = false;

@@ -1068,12 +1068,12 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
  *
  * http://docs.jquery.com/UI/Progressbar#theming
  */
-.ui-progressbar { height:5px; text-align: left; }
+.ui-progressbar { height:5px; text-align: left; background:#000; }
 .ui-progressbar .ui-progressbar-value {
     /*margin: -1px;*/
     height:1px;
-    margin:2px 0; 
-    background:#2187e7; 
+    margin:2px 0;
+    background:#2187e7;
     box-shadow:0px 0px 10px 1px rgba(0,198,255,0.7);
     /*position:absolute;*/
 
