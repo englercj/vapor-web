@@ -1,5 +1,6 @@
 vendors/
 app/tmp/
 app/Config/database.php
+nbproject/
 *~
 \#*#
