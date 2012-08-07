@@ -8,9 +8,10 @@
                 
 		echo $this->fetch('meta');
                 
-                echo $this->Html->css('install/install');
                 echo $this->Html->css('jquery-ui/jquery-ui-1.8.16.custom');
                 echo $this->Html->css('jquery-ui/jquery.ui.1.8.16.ie');
+                echo $this->Html->css('install/install');
+                echo $this->Html->css('loader');
 		echo $this->fetch('css');
                 
                 echo $this->Html->script('jquery/jquery.min');
