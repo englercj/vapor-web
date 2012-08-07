@@ -1,4 +1,4 @@
-<div class="progress"></div>
+<div class="progressbar" data-value="55"></div>
 <span class="progress-text">Step 1 of 5: Environment Check</span>
 
 <p>First off lets check your environment.</p>

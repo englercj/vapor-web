@@ -12,5 +12,7 @@
                 secondary: right
             });
         });
+        
+        $('.progressbar').progressbar();
     });
 })(jQuery, window);

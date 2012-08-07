@@ -1068,10 +1068,16 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
  *
  * http://docs.jquery.com/UI/Progressbar#theming
  */
-.ui-progressbar { height:2em; text-align: left; }
-.ui-progressbar .ui-progressbar-value {margin: -1px; height:100%;
+.ui-progressbar { height:5px; text-align: left; }
+.ui-progressbar .ui-progressbar-value {
+    /*margin: -1px;*/
+    height:1px;
+    margin:2px 0; 
+    background:#2187e7; 
+    box-shadow:0px 0px 10px 1px rgba(0,198,255,0.7);
+    /*position:absolute;*/
 
-/*this can be removed if ui-widget-header is blue*/
+/*this can be removed if ui-widget-header is blue
     color: #ffffff;
   background-color: #0064cd;
   background-repeat: repeat-x;
@@ -1085,7 +1091,7 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#049cdb', endColorstr='#0064cd', GradientType=0);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   border-color: #0064cd #0064cd #003f81;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);*/
  }
 
 
