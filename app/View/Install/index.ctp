@@ -27,6 +27,10 @@
 <?php endforeach; ?>
 
 <div class="button-container">
-    <a class="button" data-icon-left="ui-icon-arrow-1-w">Back</a>
-    <a class="button" data-icon-right="ui-icon-arrow-1-e">Next</a>
+    <!--<a id="btnBack" href="#" class="button" data-icon-left="ui-icon-arrow-1-w">Back</a>-->
+    <a id="btnNext" href="#" class="button" data-icon-right="ui-icon-arrow-1-e">Next</a>
 </div>
+
+<script type="text/javascript">
+    $('#btnNext').on('click', vapor.nextStep);
+</script>

@@ -15,6 +15,7 @@
                 
                 echo $this->Html->script('jquery/jquery.min');
                 echo $this->Html->script('jquery/jquery-ui.min');
+                echo $this->Html->script('vapor');
                 echo $this->Html->script('unobtrusive');
                 echo $this->Html->script('install/install');
 		echo $this->fetch('script');
