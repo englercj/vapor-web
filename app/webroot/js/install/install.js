@@ -29,6 +29,7 @@
             
             //load in the page
             $install.load('/install/' + steps[step], function() {
+                vapor.initialize();
                 //vapor.ui.hideLoader($install);
             });
         };
