@@ -1068,13 +1068,27 @@ button.ui-button::-moz-focus-inner { border: 0; padding: 0; } /* reset extra pad
  *
  * http://docs.jquery.com/UI/Progressbar#theming
  */
-.ui-progressbar { height:5px; text-align: left; background:#000; }
+.ui-progressbar {
+    height:4px;
+    text-align: left;
+    background:#000;
+    border:0 none;
+    padding:1px;
+}
 .ui-progressbar .ui-progressbar-value {
     /*margin: -1px;*/
-    height:1px;
-    margin:2px 0;
-    background:#2187e7;
-    box-shadow:0px 0px 10px 1px rgba(0,198,255,0.7);
+    height:4px;
+    margin:0;
+    border:0 none;
+    
+    background: #2187e7; /* Old browsers */
+    background: -moz-linear-gradient(left,  #2187e7 85%, #88b7e2 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(85%,#2187e7), color-stop(100%,#88b7e2)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left,  #2187e7 85%,#88b7e2 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left,  #2187e7 85%,#88b7e2 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left,  #2187e7 85%,#88b7e2 100%); /* IE10+ */
+    background: linear-gradient(to right,  #2187e7 85%,#88b7e2 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2187e7', endColorstr='#88b7e2',GradientType=1 ); /* IE6-9 */
     /*position:absolute;*/
 
 /*this can be removed if ui-widget-header is blue

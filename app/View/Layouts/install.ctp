@@ -8,9 +8,10 @@
 
             echo $this->fetch('meta');
 
+            echo $this->Html->css('main');
             echo $this->Html->css('bootstrap/bootstrap');
             echo $this->Html->css('bootstrap/jquery-ui-1.8.16.custom');
-            echo $this->Html->css('bootstrap/jquery.ui.1.8.16.ie');
+            //echo $this->Html->css('bootstrap/jquery.ui.1.8.16.ie');
             echo $this->Html->css('install/install');
             echo $this->Html->css('loader');
             echo $this->fetch('css');
@@ -28,7 +29,7 @@
             <h1>Vapor</h1>
         </header>
 
-        <section id="install" class="ui-widget-shadow ui-corner-all">
+        <section id="install" class="ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
             <?php echo $this->fetch('content'); ?>
         </section>
 

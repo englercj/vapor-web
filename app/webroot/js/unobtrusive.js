@@ -14,6 +14,13 @@
         });
         
         //initialize progressbars
-        $('.progressbar').progressbar();
+        $('.progressbar').each(function() {
+            var $this = $(this),
+            val = $this.data('startvalue');
+            
+            $this.progressbar({
+                value: parseInt(val, 10)
+            });
+        });
     });
 })(jQuery, window);
