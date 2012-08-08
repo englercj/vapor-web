@@ -3,11 +3,11 @@ class DATABASE_CONFIG {
 
 	public $default = array(
 		'datasource' => '%datasource%',
-		'persistent' => %persistent%,
+		'persistent' => false,
 		'host' => '%host%',
 		'login' => '%login%',
 		'password' => '%password%',
-		'database' => '%database%'
+		'database' => '%database%',
 		'prefix' => '%prefix%',
 		//'encoding' => 'utf8',
 	);

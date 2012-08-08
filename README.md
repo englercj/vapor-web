@@ -1,5 +1,11 @@
 # Vapor Control Panel, Web Interface (under development)
 
+## User Setup
+
+ - Setup temp directory permissions `chmod -R 777 app/tmp`
+ - Copy over `database.default.php` and `email.default.php`
+ - Visit `http://vapor-localhost/install`
+
 ## Setup Steps
 
  - Randomly Generate Security.salt & Security.cipherSeed
