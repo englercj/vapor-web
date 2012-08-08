@@ -8,12 +8,12 @@
 
             echo $this->fetch('meta');
 
-            echo $this->Html->css('main');
-            echo $this->Html->css('bootstrap/bootstrap');
+            //echo $this->Html->css('bootstrap/bootstrap');
             echo $this->Html->css('bootstrap/jquery-ui-1.8.16.custom');
             //echo $this->Html->css('bootstrap/jquery.ui.1.8.16.ie');
             echo $this->Html->css('install/install');
             echo $this->Html->css('loader');
+            echo $this->Html->css('main');
             echo $this->fetch('css');
 
             echo $this->Html->script('jquery/jquery.min');

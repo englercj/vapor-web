@@ -6,7 +6,7 @@
 <?php
     $fail = false;
     foreach($checks as $key => $check):
-        $fail = $fail | $check['pass'];
+        $fail = $fail || ($check['pass'] != 'success');
 ?>
 <div class="ui-corner-all ui-state-<?php echo ($check['pass'] ? 'success' : 'error'); ?>">
     <p>
@@ -28,9 +28,12 @@
 
 <div class="button-container">
     <!--<a id="btnBack" href="#" class="button" data-icon-left="ui-icon-arrow-1-w">Back</a>-->
-    <a id="btnNext" href="#" class="button" data-icon-right="ui-icon-arrow-1-e">Next</a>
+    <a id="btnNext" href="#" class="button ui-button-primary" 
+        data-icon-right="ui-icon-arrow-1-e" data-disabled="<?php echo ($fail ? 'true' : 'false'); ?>">Next</a>
 </div>
 
 <script type="text/javascript">
-    $('#btnNext').on('click', vapor.nextStep);
+    $(function() {
+        $('#btnNext').on('click', vapor.nextStep);
+    });
 </script>
