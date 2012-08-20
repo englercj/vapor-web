@@ -4,7 +4,8 @@
 
  - Setup temp directory permissions `chmod -R 777 app/tmp`
  - Copy over `database.default.php` and `email.default.php`
- - Visit `http://vapor-localhost/install`
+ - Configure local webserver
+ - Visit `http://vapor.localhost/install`
 
 ## Setup Steps
 
@@ -58,24 +59,46 @@
 ```
 server {
     listen   80;
-    server_name example.com www.example.com; #CHANGE TO YOUR DOMAIN
+    server_name example.com www.example.com;
 
-    # root directive should be global
-    root   /var/www/example.com/public/app/webroot/; #CHANGE TO YOUR ROOT
+    #root needs to be to /install_dir/app/webroot/
+    root   /var/www/example.com/public/app/webroot/;
 
-    access_log /var/www/example.com/log/access.log; #CHANGE TO YOUR LOG
-    error_log /var/www/example.com/log/error.log; #CHANGE TO YOUR LOG
+    access_log /var/www/example.com/log/access.log;
+    error_log /var/www/example.com/log/error.log;
 
-    location / {
+    location / { #rewrite rules
         index  index.php index.html index.htm;
         try_files $uri $uri/ /index.php?$uri&$args;
     }
 
-    location ~ \.php$ { #CHANGE TO YOUR PHP CONFIG
+    location ~ \.php$ { #php configuration
         include /etc/nginx/fcgi.conf;
         fastcgi_pass    127.0.0.1:10005;
         fastcgi_index   index.php;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
     }
 }
+```
+
+## Apache2 Config
+```
+<VirtualHost *:80>
+    ServerAdmin postmaster@example.com
+
+    ServerName example.com
+    ServerAlias www.example.com
+
+    ErrorLog "/var/log/example.com-error.log"
+    CustomLog "/var/log/example.com-access.log"
+
+    DocumentRoot "/var/www/example.com/public/"
+
+    <Directory "/var/www/example.com/public/">
+        Options Indexes FollowSymLinks MultiViews
+        AllowOverride All
+        Order Allow,Deny
+        Allow from all
+    </Directory>
+</VirtualHost>
 ```
