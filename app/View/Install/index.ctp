@@ -34,6 +34,6 @@
 
 <script type="text/javascript">
     $(function() {
-        $('#btnNext').on('click', vapor.nextStep);
+        $('#btnNext').on('click', vapor.install.nextStep);
     });
 </script>

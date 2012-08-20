@@ -16,22 +16,23 @@
             }
         }
         
-        window.vapor.backStep = function() {
-            vapor.loadStep(--step);
-        };
-        
-        window.vapor.nextStep = function() {
-            vapor.loadStep(++step);
-        };
-        
-        window.vapor.loadStep = function(step) {
-            vapor.ui.showLoader($install);
-            
-            //load in the page
-            $install.load('/install/' + steps[step], function() {
-                vapor.initialize();
-                //vapor.ui.hideLoader($install);
-            });
+        //setup global vapor install object
+        window.vapor.install = {
+            previousStep:function() {
+                vapor.loadStep(--step);
+            },
+            nextStep: function() {
+                vapor.loadStep(++step);
+            },
+            loadStep: function(step) {
+                vapor.ui.showLoader($install);
+
+                //load in the page
+                $install.load('/install/' + steps[step], function() {
+                    vapor.initialize();
+                    //vapor.ui.hideLoader($install);
+                });
+            }
         };
     });
 })(jQuery, window);

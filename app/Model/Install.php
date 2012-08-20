@@ -13,7 +13,7 @@ class Install extends AppModel {
   //Save database configuration
   function saveDb($data = array()) {
     return $this->saveX(array(
-		'datasource' => '%datasource%',
+		'datasource' => 'Database/Mysql',
 		'host' => '%host%',
 		'port' => '%port%',
 		'login' => '%login%',
@@ -32,7 +32,7 @@ class Install extends AppModel {
     return $this->saveX(array(
 		'from' => '%from%',
 		'host' => '%host%',
-		'port' => '%port%',
+		'port' => "'%port%'",
 		'username' => '%username%',
 		'password' => '%password%',
 		),
