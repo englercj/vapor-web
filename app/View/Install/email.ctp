@@ -3,7 +3,7 @@
 
 <p>Now lets setup your SMTP servers; SMTP is currently the only supported method.</p>
 
-<form id="config">    
+<form id="config" action="<?php echo $this->Html->url(array('controller' => 'install', 'action' => 'email')); ?>">    
     <label for="from">From:</label>
     <input type="text" id="from" name="from" placeholder="email@example.com" />
     <br/>

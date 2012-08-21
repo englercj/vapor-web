@@ -66,7 +66,7 @@ class InstallController extends AppController {
             if (!$link) {
                 $result = array(
                     'success' => false,
-                    'error' => mysql_error()
+                    'message' => mysql_error()
                 );
             } else {
                 $dbcheck = mysql_select_db($this->data['database']);
@@ -74,11 +74,14 @@ class InstallController extends AppController {
                 if (!$dbcheck) {
                     $result = array(
                         'success' => false,
-                        'error' => mysql_error()
+                        'message' => mysql_error()
                     );
                 } else {
-                    //the settings are correct, save and open a handle
+                    //the settings are correct, save settings
                     $this->Install->saveDb($this->data);
+                    
+                    //now open a handle to insert the schema
+                    //TODO: Check is schema already exists and don't insert if it does.
                     $db = new mysqli($this->data['host'],
                                     $this->data['login'],
                                     $this->data['password'],
@@ -148,7 +151,7 @@ class InstallController extends AppController {
             $this->data['group_id'] = 1; //superuser
             $user = $this->User->save($this->data);
 
-            $result = array('success' => !!$user);
+            $result = array('success' => !!$user, 'message' => (!!$user ? '' : 'Unable to save superuser account!'));
             return new CakeResponse(array('body' => json_encode($result), 'type' => 'json'));
         }
     }
@@ -166,7 +169,7 @@ class InstallController extends AppController {
 
             $server = $this->Server->save($this->data);
 
-            $result = array('success' => !!$server);
+            $result = array('success' => !!$server, 'message' => (!!$server ? '' : 'Unable to save server record!'));
             return new CakeResponse(array('body' => json_encode($result), 'type' => 'json'));
         }
     }

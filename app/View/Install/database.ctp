@@ -3,7 +3,7 @@
 
 <p>Next, let's connect up to your Database.</p>
 
-<form id="config">
+<form id="config" action="<?php echo $this->Html->url(array('controller' => 'install', 'action' => 'database')); ?>">
     <label for="datasource">Datasource:</label>
     <select id="datasource" name="datasource">
         <option value="Database/Mysql">MYSQL</option>
@@ -19,15 +19,15 @@
     <br/>
     
     <label for="database">Database:</label>
-    <input type="text" id="database" name="database" placeholder="vapordb" />
+    <input type="text" id="database" name="database" />
     <br/>
     
     <label for="login">Username:</label>
-    <input type="text" id="login" name="login" placeholder="username" />
+    <input type="text" id="login" name="login" />
     <br/>
     
     <label for="password">Password:</label>
-    <input type="password" id="password" name="password" placeholder="password" />
+    <input type="password" id="password" name="password" />
     <br/>
 </form>
 
@@ -39,8 +39,16 @@
 
 <script type="text/javascript">
     $(function() {
+        //setup validation of form
+        $('#config').validate({
+            rules: {
+                datasource: 'required',
+                database: 'required'
+            }
+        });
+        
         //$('#btnBack').on('click', vapor.install.previousStep);
-        $('#btnNext').on('click', vapor.install.nextStep);
+        $('#btnNext').on('click', vapor.install.submitAndCheck);
         
         $('#datasource').on('change', function() {
         });

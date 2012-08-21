@@ -29,12 +29,32 @@
                 $('#btnNext').hide();
                 $('#btnBack').hide();
                 $('.button-container').append(vapor.html.getLoader());
-                //vapor.ui.showLoader($install);
-
+                
                 //load in the page
                 $install.load('/install/' + steps[step], function() {
                     vapor.initialize();
                     //vapor.ui.hideLoader($install);
+                });
+            },
+            submitAndCheck: function() {
+                var $form = $('#config');
+                
+                $('#btnNext').hide();
+                $('#btnBack').hide();
+                $('.button-container').append(vapor.html.getLoader());
+                
+                vapor.ajax.submitForm($form, { host: 'localhost', port: '3306' }, function(result) {
+                    //check result
+                    if(result.success) {
+                        //move to next step
+                        vapor.install.nextStep();
+                    } else {
+                        $('.button-container .loader').remove();
+                        $('#btnNext').show();
+                        $('#btnBack').show();
+                        
+                        alert('Error: ' + result.message);
+                    }
                 });
             }
         };
