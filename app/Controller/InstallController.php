@@ -20,8 +20,8 @@ class InstallController extends AppController {
         $this->set('checks', array(
             'version' => array(
                 'title' => 'PHP Version',
-                'successText' => 'Your PHP version is 5.2.8 or above.',
-                'failText' => 'Please update your PHP version to 5.2.8 or above.',
+                'successText' => 'Your PHP version is ' . PHP_VERSION,
+                'failText' => 'Please update your PHP version to 5.2.8 or above, currently you are using ' . PHP_VERSION,
                 'pass' => version_compare(PHP_VERSION, '5.2.8', '>=')
             ),
             'curl' => array(
@@ -45,8 +45,8 @@ class InstallController extends AppController {
             'database' => array(
                 'title' => 'Database Configuration',
                 'successText' => 'Your database configuration is writtable.',
-                'failText' => 'Please allow your webserver write permissions to ' . APP . 'Config/database.php',
-                'pass' => is_writable(APP . 'Config/database.php')
+                'failText' => 'Please allow your webserver write permissions to ' . APP . 'Config' . DS . 'database.php',
+                'pass' => is_writable(APP . 'Config' . DS. 'database.php')
             )
         ));
     }
