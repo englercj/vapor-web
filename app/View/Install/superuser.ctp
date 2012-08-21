@@ -1,4 +1,4 @@
-<div class="progressbar" data-startvalue="80"></div>
+<div class="progressbar" data-startvalue="60"></div>
 <span class="progress-text"><span class="blue">Step 4 of 5:</span> Create Superuser Account</span>
 
 <p>At this point let's create a Super User account to manage the application.</p>

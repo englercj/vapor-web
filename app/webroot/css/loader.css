@@ -24,7 +24,7 @@
 	box-shadow: 0 0 15px #2187e7; 
 	width:30px;
 	height:30px;
-	margin:0 auto;
+	margin:0 auto -30px auto;
 	position:relative;
 	top:-50px;
         animation:spinoffPulse 1s infinite linear;

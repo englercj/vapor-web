@@ -2,16 +2,15 @@
     window.vapor = {
         ui: {
             showLoader: function($target) {
+                if(!$target) $target = $('body');
+                
                 if(!($target instanceof $))
                     $target = $($target);
 
                 if($target.find('.loader').length > 0) {
                     $target.find('.loader').show();
                 } else {
-                    $target.prepend('<div class="ui-widget-overlay loader">\
-                        <div class="loaderCircle"></div>\
-                        <div class="loaderCircle1"></div>\
-                    </div>');
+                    $target.prepend(vapor.html.createLoader());
                 }
             },
             hideLoader: function($target) {
@@ -20,6 +19,9 @@
 
                 $target.find('.loader').hide();
             }
+        },
+        html: {
+            getLoader: function() { return '<div class="loaderCircle"></div><div class="loaderCircle1"></div>'; }
         },
         initialize: function() {
             //initialize buttons

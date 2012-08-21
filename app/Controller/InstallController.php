@@ -170,5 +170,16 @@ class InstallController extends AppController {
             return new CakeResponse(array('body' => json_encode($result), 'type' => 'json'));
         }
     }
+    
+    //Placeholder
+    function finish() {
+        if (!$this->request->isAjax()) {
+            $this->layout = 'install';
+        } else if ($this->request->is('get')) {
+            $this->layout = 'ajax';
+        } else if ($this->request->is('post')) {
+            return new CakeResponse(array('body' => json_encode(array('success' => 'true')), 'type' => 'json'));
+        }
+    }
 
 }
