@@ -1,28 +1,5 @@
 (function($, window, undefined) {
     window.vapor = {
-        ui: {
-            showLoader: function($target) {
-                if(!$target) $target = $('body');
-                
-                if(!($target instanceof $))
-                    $target = $($target);
-
-                if($target.find('.loader').length > 0) {
-                    $target.find('.loader').show();
-                } else {
-                    $target.prepend(vapor.html.createLoader());
-                }
-            },
-            hideLoader: function($target) {
-                if(!($target instanceof $))
-                    $target = $($target);
-
-                $target.find('.loader').hide();
-            }
-        },
-        html: {
-            getLoader: function() { return '<div class="loaderCircle"></div><div class="loaderCircle1"></div>'; }
-        },
         initialize: function() {
             //initialize buttons
             $('.button').button('destroy').each(function() {
@@ -50,4 +27,8 @@
         },
         temp: {}
     };
+    
+    $(function() {
+        vapor.initialize();
+    });
 })(jQuery, window);

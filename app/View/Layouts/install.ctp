@@ -16,11 +16,22 @@
             echo $this->Html->css('main');
             echo $this->fetch('css');
 
+            //jquery
             echo $this->Html->script('jquery/jquery.min');
             echo $this->Html->script('jquery/jquery-ui.min');
-            echo $this->Html->script('vapor');
-            echo $this->Html->script('unobtrusive');
+            echo $this->Html->script('jquery/jquery.validate.min');
+            
+            //vapor framework
+            echo $this->Html->script('vapor/vapor');
+            echo $this->Html->script('vapor/ajax');
+            echo $this->Html->script('vapor/html');
+            echo $this->Html->script('vapor/ui');
+            echo $this->Html->script('vapor/util');
+            
+            //install scripts
             echo $this->Html->script('install/install');
+            
+            //fetch additional scripts
             echo $this->fetch('script');
         ?>
     </head>
