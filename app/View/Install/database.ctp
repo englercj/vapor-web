@@ -10,23 +10,23 @@
         <option value="Database/Sqlite" disabled>SQLite</option>
     </select>
     <br/>
-    
+
     <label for="host">Host:</label>
     <input type="text" id="host" name="host" placeholder="localhost" />
     <br/>
-    
+
     <label for="port">Port:</label>
     <input type="text" id="port" name="port" placeholder="3306" />
     <br/>
-    
+
     <label for="database">Database:</label>
     <input type="text" id="database" name="database" />
     <br/>
-    
+
     <label for="login">Username:</label>
     <input type="text" id="login" name="login" />
     <br/>
-    
+
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" />
     <br/>

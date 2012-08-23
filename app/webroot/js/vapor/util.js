@@ -20,7 +20,8 @@
                 messages: messages,
                 errorClass: 'invalid',
                 validClass: 'valid',
-                errorElement: 'label'
+                errorElement: 'p',
+                wrapper: 'div class="ui-corner-all ui-state-error invalid"'
             });
         },
         jquerify: function($o, defaultSelector) {

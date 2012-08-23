@@ -18,5 +18,26 @@ input::-webkit-input-placeholder { color:#AAA; }
 input:-moz-placeholder { color:#AAA; }
 input:-ms-input-placeholder { color:#AAA; }
 
+label { display:block; margin:5px 5px 0 0; }
 
+.red { color:#EA1523/*#EE5F5B/*C43C35*/; }
 .blue { color:#2187e7; }
+
+.col50 { float:left; width:50%; }
+
+/* Validtion Styles */
+form div.invalid.ui-state-error {
+    position:absolute;
+    margin-left:175px;
+    margin-top:-26px;
+}
+
+div.invalid p {
+    color:#fff;
+    margin:3px 10px;
+}
+input.invalid { 
+    border-color:rgba(236, 20, 35, 0.8);
+    box-shadow:0 1px 3px rgba(0, 0, 0, 0.1) inset, 0 0 8px rgba(236, 20, 35, 0.6);
+    outline:0 none;
+}
