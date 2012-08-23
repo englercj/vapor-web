@@ -1,5 +1,5 @@
 (function($, window, undefined) {
     window.vapor.html = {
-        getLoader: function() { return '<div class="loaderCircle"></div><div class="loaderCircle1"></div>'; }
+        createLoader: function() { return '<div class="loader"><div class="loaderCircle"></div><div class="loaderCircle1"></div></div>'; }
     };
 })(jQuery, window);

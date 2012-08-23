@@ -28,7 +28,7 @@
             loadStep: function(step) {
                 $('#btnNext').hide();
                 $('#btnBack').hide();
-                $('.button-container').append(vapor.html.getLoader());
+                vapor.ui.showLoader('.button-container');
                 
                 //load in the page
                 $install.load('/install/' + steps[step], function() {
@@ -41,21 +41,37 @@
                 
                 $('#btnNext').hide();
                 $('#btnBack').hide();
-                $('.button-container').append(vapor.html.getLoader());
+                vapor.ui.showLoader('.button-container');
                 
-                vapor.ajax.submitForm($form, { host: 'localhost', port: '3306' }, function(result) {
-                    //check result
-                    if(result.success) {
-                        //move to next step
-                        vapor.install.nextStep();
-                    } else {
-                        $('.button-container .loader').remove();
-                        $('#btnNext').show();
-                        $('#btnBack').show();
-                        
-                        alert('Error: ' + result.message);
-                    }
-                });
+                //if form is valid
+                if($form.valid()) {
+                    //apply defaults
+                    var data = vapor.util.applyFormDefaults($form, { host: 'localhost', port: '3306' });
+                    
+                    vapor.ajax.submitForm($form, data, 
+                        function(result) {
+                            $('body').append(result);
+                            //check result
+                            if(result.success) {
+                                //move to next step
+                                vapor.install.nextStep();
+                            } else {
+                                vapor.ui.hideLoader('.button-container');
+                                $('#btnNext').show();
+                                $('#btnBack').show();
+
+                                alert('Error: ' + result.message);
+                            }
+                        },
+                        function(jqXHR, textStatus, errorThrown) {
+                            console.log(arguments);
+                        }
+                    );
+                } else {
+                    vapor.ui.hideLoader('.button-container');
+                    $('#btnNext').show();
+                    $('#btnBack').show();
+                }
             }
         };
     });

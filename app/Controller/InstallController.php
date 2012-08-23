@@ -58,15 +58,26 @@ class InstallController extends AppController {
         } else if ($this->request->is('get')) {
             $this->layout = 'ajax';
         } else if ($this->request->is('post')) {
+            //never cache this page, and do not output debug in our json
             $this->disableCache();
+            Configure::write('debug', 0);
 
             //try to connect to DB
             $link = mysql_connect($this->data['host'], $this->data['login'], $this->data['password']);
+            /*try {
+                $link = mysql_connect($this->data['host'], $this->data['login'], $this->data['password']);
+            } catch(Exception $e) {
+                return new CakeResponse(array('body' => json_encode(array(
+                    'success' => false,
+                    'message' => $e->getMessage()
+                )), 'type' => 'json'));
+            }*/
+            
             //if connection failed
             if (!$link) {
                 $result = array(
                     'success' => false,
-                    'message' => mysql_error()
+                    'message' => 'Unable to connect to MySQL Database. Message: ' . mysql_error()
                 );
             } else {
                 $dbcheck = mysql_select_db($this->data['database']);
@@ -128,7 +139,9 @@ class InstallController extends AppController {
         } else if ($this->request->is('get')) {
             $this->layout = 'ajax';
         } else if ($this->request->is('post')) {
+            //never cache this page, and do not output debug in our json
             $this->disableCache();
+            Configure::write('debug', 0);
 
             $this->Install->saveEmail($this->data);
 
@@ -144,7 +157,9 @@ class InstallController extends AppController {
         } else if ($this->request->is('get')) {
             $this->layout = 'ajax';
         } else if ($this->request->is('post')) {
+            //never cache this page, and do not output debug in our json
             $this->disableCache();
+            Configure::write('debug', 0);
 
             $this->loadModel('User');
 
@@ -163,7 +178,9 @@ class InstallController extends AppController {
         } else if ($this->request->is('get')) {
             $this->layout = 'ajax';
         } else if ($this->request->is('post')) {
+            //never cache this page, and do not output debug in our json
             $this->disableCache();
+            Configure::write('debug', 0);
 
             $this->loadModel('Server');
 
