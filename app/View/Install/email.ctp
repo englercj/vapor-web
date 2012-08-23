@@ -34,17 +34,26 @@
 <script type="text/javascript">
     $(function() {
         //setup validation of form
-        vapor.util.setupFormValidation('#config', {
-            from: { required: true, email: true },
-            host: { required: true },
-            port: { required: false, number: true },
-            username: { required: false },
-            password: {
-                required: function(element) {
-                    return ($('#username').val() !== '');
+        vapor.util.setupFormValidation('#config', 
+            {
+                from: { required: true, email: true },
+                host: { required: true },
+                port: { required: false, number: true },
+                username: { required: false },
+                password: {
+                    required: function(element) {
+                        return ($('#username').val() !== '');
+                    }
                 }
+            },
+            {
+                from: 'You must enter a valid email address.',
+                host: 'Hostname is required.',
+                port: 'Port must be numeric.',
+                username: '',
+                password: 'Password is required when username is specified.'
             }
-        });
+        );
         
         $('#btnBack').on('click', vapor.install.previousStep);
         $('#btnNext').on('click', vapor.install.submitAndCheck);

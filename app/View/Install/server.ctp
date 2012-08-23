@@ -22,10 +22,16 @@
 <script type="text/javascript">
     $(function() {
         //setup validation of form
-        vapor.util.setupFormValidation('#config', {
-            host: { required: true },
-            port: { required: false, number: true }
-        });
+        vapor.util.setupFormValidation('#config', 
+            {
+                host: { required: true },
+                port: { required: false, number: true }
+            },
+            {
+                host: 'Hostname is required.',
+                port: 'Port must be numeric.'
+            }
+        );
         
         $('#btnBack').on('click', vapor.install.previousStep);
         $('#btnNext').on('click', vapor.install.submitAndCheck);

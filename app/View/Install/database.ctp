@@ -40,10 +40,20 @@
 
 <script type="text/javascript">
     $(function() {
-        vapor.util.setupFormValidation('#config', {
-            datasource: 'required',
-            database: 'required'
-        });
+        vapor.util.setupFormValidation('#config', 
+            {
+                datasource: { required: true },
+                database: { required: true },
+                host: { required: false },
+                port: { required: false, number: true }
+            },
+            {
+                datasource: 'Datasource is required.',
+                database: 'Database name is required.',
+                host: '',
+                port: 'Port must be numeric.'
+            }
+        );
         
         //$('#btnBack').on('click', vapor.install.previousStep);
         $('#btnNext').on('click', vapor.install.submitAndCheck);
