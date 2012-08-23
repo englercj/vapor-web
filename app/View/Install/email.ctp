@@ -4,24 +4,24 @@
 <p>Now lets setup your SMTP servers; SMTP is currently the only supported method.</p>
 
 <form id="config" action="<?php echo $this->Html->url(array('controller' => 'install', 'action' => 'email')); ?>">    
-    <label for="from">From:</label>
-    <input type="text" id="from" name="from" placeholder="email@example.com" />
+    <label for="from">From Email:</label>
+    <input type="text" id="from" name="from" />
     <br/>
     
-    <label for="database">Host:</label>
-    <input type="text" id="host" name="host" placeholder="localhost" />
+    <label for="host">Host:</label>
+    <input type="text" id="host" name="host" />
     <br/>
     
     <label for="port">Port:</label>
     <input type="text" id="port" name="port" placeholder="25" />
     <br/>
     
-    <label for="login">Username:</label>
-    <input type="text" id="login" name="username" placeholder="username" />
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" />
     <br/>
     
     <label for="password">Password:</label>
-    <input type="password" id="password" name="password" placeholder="password" />
+    <input type="password" id="password" name="password" />
     <br/>
 </form>
 
@@ -33,7 +33,22 @@
 
 <script type="text/javascript">
     $(function() {
+        //setup validation of form
+        $('#config').validate({
+            rules: {
+                from: { required: true, email: true },
+                host: { required: true },
+                port: { required: false, number: true },
+                username: { required: false },
+                password: {
+                    required: function(element) {
+                        return ($('#username').val() !== '');
+                    }
+                }
+            }
+        });
+        
         $('#btnBack').on('click', vapor.install.previousStep);
-        $('#btnNext').on('click', vapor.install.nextStep);
+        $('#btnNext').on('click', vapor.install.submitAndCheck);
     });
 </script>

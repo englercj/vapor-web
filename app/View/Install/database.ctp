@@ -6,7 +6,8 @@
 <form id="config" action="<?php echo $this->Html->url(array('controller' => 'install', 'action' => 'database')); ?>">
     <label for="datasource">Datasource:</label>
     <select id="datasource" name="datasource">
-        <option value="Database/Mysql">MYSQL</option>
+        <option value="Database/Mysql">MySQL</option>
+        <option value="Database/Sqlite" disabled>SQLite</option>
     </select>
     <br/>
     

@@ -5,11 +5,11 @@
 
 <form id="config">
     <label for="host">Host:</label>
-    <input type="text" id="host" name="host" placeholder="localhost" />
+    <input type="text" id="host" name="host" />
     <br/>
     
-    <label for="password">Port:</label>
-    <input type="password" id="port" name="port" placeholder="9876" />
+    <label for="port">Port:</label>
+    <input type="text" id="port" name="port" placeholder="9876" />
     <br/>
 </form>
 
@@ -21,7 +21,15 @@
 
 <script type="text/javascript">
     $(function() {
+        //setup validation of form
+        $('#config').validate({
+            rules: {
+                host: { required: true },
+                port: { required: false, number: true }
+            }
+        });
+        
         $('#btnBack').on('click', vapor.install.previousStep);
-        $('#btnNext').on('click', vapor.install.nextStep);
+        $('#btnNext').on('click', vapor.install.submitAndCheck);
     });
 </script>

@@ -5,11 +5,11 @@
 
 <form id="config">
     <label for="username">Username:</label>
-    <input type="text" id="username" name="username" placeholder="username" />
+    <input type="text" id="username" name="username" />
     <br/>
     
     <label for="password">Password:</label>
-    <input type="password" id="password" name="password" placeholder="password" />
+    <input type="password" id="password" name="password" />
     <br/>
 </form>
 
@@ -21,7 +21,15 @@
 
 <script type="text/javascript">
     $(function() {
+        //setup validation of form
+        $('#config').validate({
+            rules: {
+                username: { required: true },
+                password: { required: true }
+            }
+        });
+        
         $('#btnBack').on('click', vapor.install.previousStep);
-        $('#btnNext').on('click', vapor.install.nextStep);
+        $('#btnNext').on('click', vapor.install.submitAndCheck);
     });
 </script>
