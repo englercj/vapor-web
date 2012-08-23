@@ -9,8 +9,10 @@
                 disabled = $this.data('disabled');
 
                 $this.button({
-                    primary: left,
-                    secondary: right,
+                    icons: {
+                        primary: left,
+                        secondary: right
+                    },
                     disabled: disabled
                 });
             });
