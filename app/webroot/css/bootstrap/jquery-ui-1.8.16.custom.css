@@ -671,7 +671,10 @@ button.ui-button-icons-only { width: 3.7em; }
 
 /*button icon element(s) */
 .ui-button-text-icon-primary, .ui-button-text-icon-secondary { position: relative; }
-.ui-button-text-icon-primary .ui-icon, .ui-button-text-icon-secondary .ui-icon, .ui-button-icon-only .ui-icon { background-image:url(images/ui-icons_ffffff_256x240.png); }
+.ui-button-text-icon-primary.ui-button-success .ui-icon, .ui-button-text-icon-secondary.ui-button-success .ui-icon, .ui-button-icon-only.ui-button-success .ui-icon,
+.ui-button-text-icon-primary.ui-button-primary .ui-icon, .ui-button-text-icon-primary.ui-button-success .ui-icon, .ui-button-icon-only.ui-button-primary .ui-icon,
+.ui-button-text-icon-primary.ui-button-error .ui-icon, .ui-button-text-icon-primary.ui-button-error .ui-icon, .ui-button-icon-only.ui-button-error .ui-icon
+{ background-image:url(images/ui-icons_ffffff_256x240.png); }
 .ui-button-icon-only .ui-icon, .ui-button-text-icon-primary .ui-icon, .ui-button-text-icon-secondary .ui-icon, .ui-button-text-icons .ui-icon, .ui-button-icons-only .ui-icon { top: 50%; margin-top:-8px; margin-bottom:3px; position:absolute; }
 .ui-button-icon-only .ui-icon { left: 50%; margin-left: -8px; }
 .ui-button-text-icon-primary .ui-button-icon-primary, .ui-button-text-icons .ui-button-icon-primary, .ui-button-icons-only .ui-button-icon-primary { left: .5em; }
