@@ -10,6 +10,26 @@
             }
 
             return data;
+        },
+        setupFormValidation: function($form, rules, messages) {
+            $form = vapor.util.jquerify($form);
+            
+            //setup validation of form
+            $form.validate({
+                rules: rules,
+                messages: messages,
+                errorClass: 'invalid',
+                validClass: 'valid',
+                errorElement: 'label'
+            });
+        },
+        jquerify: function($o, defaultSelector) {
+            if(!$o) $o = $(defaultSelector);
+
+            if(!($o instanceof $))
+                $o = $($o);
+            
+            return $o;
         }
     };
 })(jQuery, window);

@@ -34,16 +34,14 @@
 <script type="text/javascript">
     $(function() {
         //setup validation of form
-        $('#config').validate({
-            rules: {
-                from: { required: true, email: true },
-                host: { required: true },
-                port: { required: false, number: true },
-                username: { required: false },
-                password: {
-                    required: function(element) {
-                        return ($('#username').val() !== '');
-                    }
+        vapor.util.setupFormValidation('#config', {
+            from: { required: true, email: true },
+            host: { required: true },
+            port: { required: false, number: true },
+            username: { required: false },
+            password: {
+                required: function(element) {
+                    return ($('#username').val() !== '');
                 }
             }
         });

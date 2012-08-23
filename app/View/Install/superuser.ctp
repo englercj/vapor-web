@@ -22,11 +22,9 @@
 <script type="text/javascript">
     $(function() {
         //setup validation of form
-        $('#config').validate({
-            rules: {
-                username: { required: true },
-                password: { required: true }
-            }
+        vapor.util.setupFormValidation('#config', {
+            username: { required: true },
+            password: { required: true }
         });
         
         $('#btnBack').on('click', vapor.install.previousStep);

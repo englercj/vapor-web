@@ -40,12 +40,9 @@
 
 <script type="text/javascript">
     $(function() {
-        //setup validation of form
-        $('#config').validate({
-            rules: {
-                datasource: 'required',
-                database: 'required'
-            }
+        vapor.util.setupFormValidation('#config', {
+            datasource: 'required',
+            database: 'required'
         });
         
         //$('#btnBack').on('click', vapor.install.previousStep);
