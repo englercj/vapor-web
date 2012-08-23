@@ -20,15 +20,20 @@ input:-ms-input-placeholder { color:#AAA; }
 
 label { display:block; margin:5px 5px 0 0; }
 
+select { width:260px; }
+input { width:250px; }
+
 .red { color:#EA1523/*#EE5F5B/*C43C35*/; }
 .blue { color:#2187e7; }
 
 .col50 { float:left; width:50%; }
 
+.chzn-container { color:#444; }
+
 /* Validtion Styles */
 form div.invalid.ui-state-error {
     position:absolute;
-    margin-left:175px;
+    margin-left:265px;
     margin-top:-26px;
 }
 

@@ -7,7 +7,7 @@
     <label for="datasource">Datasource:</label>
     <select id="datasource" name="datasource">
         <option value="Database/Mysql">MySQL</option>
-        <option value="Database/Sqlite" disabled>SQLite</option>
+        <option value="Database/Sqlite">SQLite</option>
     </select>
     <br/>
 

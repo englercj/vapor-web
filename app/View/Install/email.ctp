@@ -40,18 +40,14 @@
                 host: { required: true },
                 port: { required: false, number: true },
                 username: { required: false },
-                password: {
-                    required: function(element) {
-                        return ($('#username').val() !== '');
-                    }
-                }
+                password: { required: false }
             },
             {
                 from: 'You must enter a valid email address.',
                 host: 'Hostname is required.',
                 port: 'Port must be numeric.',
                 username: '',
-                password: 'Password is required when username is specified.'
+                password: ''
             }
         );
         

@@ -26,6 +26,9 @@
                     value: parseInt(val, 10)
                 });
             });
+            
+            //initialize select boxes
+            $('select').chosen('destroy').chosen();
         },
         temp: {}
     };

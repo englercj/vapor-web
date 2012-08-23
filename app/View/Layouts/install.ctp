@@ -11,6 +11,7 @@
             //echo $this->Html->css('bootstrap/bootstrap');
             echo $this->Html->css('bootstrap/jquery-ui-1.8.16.custom');
             //echo $this->Html->css('bootstrap/jquery.ui.1.8.16.ie');
+            echo $this->Html->css('chosen/chosen');
             echo $this->Html->css('install/install');
             echo $this->Html->css('loader');
             echo $this->Html->css('main');
@@ -20,6 +21,7 @@
             echo $this->Html->script('jquery/jquery.min');
             echo $this->Html->script('jquery/jquery-ui.min');
             echo $this->Html->script('jquery/jquery.validate.min');
+            echo $this->Html->script('jquery/chosen.jquery.min');
             
             //vapor framework
             echo $this->Html->script('vapor/vapor');
