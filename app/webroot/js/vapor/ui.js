@@ -1,10 +1,7 @@
 (function($, window, undefined) {
     window.vapor.ui = {
         showLoader: function($target) {
-            if(!$target) $target = $('body');
-
-            if(!($target instanceof $))
-                $target = $($target);
+            $target = vapor.util.jquerify($target, 'body');
 
             if($target.find('.loader').length > 0) {
                 $target.find('.loader').show();
@@ -13,8 +10,7 @@
             }
         },
         hideLoader: function($target) {
-            if(!($target instanceof $))
-                $target = $($target);
+            $target = vapor.util.jquerify($target);
 
             $target.find('.loader').hide();
         }

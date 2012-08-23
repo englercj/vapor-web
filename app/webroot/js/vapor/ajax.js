@@ -42,6 +42,8 @@
         },
         req: $.ajax,
         submitForm: function($form, data, success, error) {
+            $form = vapor.util.jquerify($form);
+            
             //attempt to send data
             vapor.ajax.post($form.prop('action'), data, success, error);
         }
