@@ -4,12 +4,12 @@ class EmailConfig {
 
     public $default = array(
         'transport' => 'Smtp',
-        'from' => '%from%',
-        'host' => '%host%',
-        'port' => '%port%',
+        'from' => 'localhost',
+        'host' => '3306',
+        'port' => ,
         'timeout' => 60,
-        'username' => '%username%',
-        'password' => '%password%',
+        'username' => '',
+        'password' => '',
         'client' => null,
         'log' => false,
         //'charset' => 'utf-8',

@@ -1,6 +1,10 @@
 <?php
 
+App::uses('ConnectionManager', 'Model');
+
 class InstallController extends AppController {
+    
+    var $dbSettings = array();
 
     function beforeFilter() {
         $this->Auth->allow('*');
@@ -79,6 +83,9 @@ class InstallController extends AppController {
                         'message' => mysql_error()
                     );
                 } else {
+                    //store db settings for other methods to use
+                    $this->dbSettings = $this->data;
+                    
                     //the settings are correct, save settings to file
                     $this->Install->saveDb($this->data);
                     
@@ -137,8 +144,10 @@ class InstallController extends AppController {
             //never cache this page, and do not output debug in our json
             $this->disableCache();
             Configure::write('debug', 0);
-
-            $this->Install->saveEmail($this->data);
+            
+            if(!isset($this->data['skip'])) {
+                $this->Install->saveEmail($this->data);
+            }
 
             $result = array('success' => true);
             return new CakeResponse(array('body' => json_encode($result), 'type' => 'json'));
@@ -155,13 +164,20 @@ class InstallController extends AppController {
             //never cache this page, and do not output debug in our json
             $this->disableCache();
             Configure::write('debug', 0);
-
+            
+            //insert user
             $this->loadModel('User');
-
-            $this->data['group_id'] = 1; //superuser
-            $user = $this->User->save($this->data);
-
-            $result = array('success' => !!$user, 'message' => (!!$user ? '' : 'Unable to save superuser account!'));
+            
+            try {
+                $dataz = $this->data;
+                $dataz['group_id'] = 1; //superuser
+                $this->User->create($dataz);
+                $user = $this->User->save();
+                $result = array('success' => !!$user, 'message' => (!!$user ? '' : 'Unable to save superuser account!'), 'user' => $user);
+            } catch(Exception $e) {
+                $result = array('success' => false, 'message' => $e->getMessage(), 'exception' => $e);
+            }
+            
             return new CakeResponse(array('body' => json_encode($result), 'type' => 'json'));
         }
     }
@@ -178,10 +194,15 @@ class InstallController extends AppController {
             Configure::write('debug', 0);
 
             $this->loadModel('Server');
+            
+            try {
+                $this->Server->create($this->data);
+                $server = $this->Server->save();
+                $result = array('success' => !!$server, 'message' => (!!$server ? '' : 'Unable to save server record!'), 'server' => $server);
+            } catch(Exception $e) {
+                $result = array('success' => false, 'message' => $e->getMessage(), 'exception' => $e);
+            }
 
-            $server = $this->Server->save($this->data);
-
-            $result = array('success' => !!$server, 'message' => (!!$server ? '' : 'Unable to save server record!'));
             return new CakeResponse(array('body' => json_encode($result), 'type' => 'json'));
         }
     }

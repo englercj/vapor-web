@@ -3,7 +3,7 @@
 
 <p>At this point let's create a Super User account to manage the application.</p>
 
-<form id="config">
+<form id="config" action="<?php echo $this->Html->url(array('controller' => 'install', 'action' => 'superuser')); ?>">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" />
     <br/>

@@ -27,6 +27,7 @@
 
 <div class="button-container">
     <a id="btnBack" href="#" class="button" data-icon-left="ui-icon-arrow-1-w">Back</a>
+    <a id="btnSkip" href="#" class="button" data-icon-right="ui-icon-arrow-1-e">Skip</a>
     <a id="btnNext" href="#" class="button ui-button-primary" 
         data-icon-right="ui-icon-arrow-1-e">Next</a>
 </div>
@@ -53,5 +54,21 @@
         
         $('#btnBack').on('click', vapor.install.previousStep);
         $('#btnNext').on('click', vapor.install.submitAndCheck);
+        
+        $('#btnSkip').on('click', function(e) {
+            //immediately remove these buttons so that you can't click 2 times
+            $('#btnNext').hide();
+            $('#btnSkip').hide();
+            $('#btnBack').hide();
+            vapor.ui.showLoader('.button-container');
+            
+            vapor.ajax.post('<?php echo $this->Html->url(array('controller' => 'install', 'action' => 'email')); ?>', 
+                { skip: true }, 
+                function(result) {
+                    vapor.install.nextStep();
+                },
+                function(jqXHR, textStatus, errorThrown) {}
+            );
+        });
     });
 </script>
