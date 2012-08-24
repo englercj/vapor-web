@@ -12,8 +12,10 @@ class InstallController extends AppController {
         //$install = new File(TMP . "inst.txt");
         //if (!$install->exists())
         //exit("You are not allowed to be here!");
-
-        App::uses('ConnectionManager', 'Model');
+        
+        if($this->installed) {
+            $this->redirect('/');
+        }
     }
 
     //runs environment checks
@@ -63,7 +65,7 @@ class InstallController extends AppController {
         } else if ($this->request->is('post')) {
             //never cache this page, and do not output debug in our json
             $this->disableCache();
-            //Configure::write('debug', 0);
+            Configure::write('debug', 0);
 
             //try to connect to DB
             $link = mysql_connect($this->data['host'], $this->data['login'], $this->data['password']);
@@ -90,22 +92,19 @@ class InstallController extends AppController {
                     $this->Install->saveDb($this->data);
                     
                     //connect CakePHP to DB with new settings
+                    //since we only just saved them we have to
+                    //manually create the datasource
                     $this->loadModel('ConnectionManager');
                     $this->ConnectionManager->drop('default');
-                    $this->ConnectionManager->create('default', $this->data);
+                    $ds = $this->ConnectionManager->create('default', $this->data);
 
-                    //now open a handle to insert the schema
-                    //TODO: Check is schema already exists and don't insert if it does.
-                    $db = new mysqli($this->data['host'],
-                                    $this->data['login'],
-                                    $this->data['password'],
-                                    $this->data['database']);
+                    //TODO: Check is schema already exists and/or upgrade is needed
 
                     //execute SQL files
-                    $this->Install->createSchema($db);
+                    $this->Install->createSchema($ds);
 
                     //insert static data files
-                    $this->Install->insertStatic($db);
+                    $this->Install->insertStatic($ds);
 
                     //insert SuperUser Group
                     $this->loadModel('Group');
@@ -173,7 +172,7 @@ class InstallController extends AppController {
                 $dataz['group_id'] = 1; //superuser
                 $this->User->create($dataz);
                 $user = $this->User->save();
-                $result = array('success' => !!$user, 'message' => (!!$user ? '' : 'Unable to save superuser account!'), 'user' => $user);
+                $result = array('success' => !!$user, 'message' => (!!$user ? '' : 'Unable to save superuser account.'), 'user' => $user);
             } catch(Exception $e) {
                 $result = array('success' => false, 'message' => $e->getMessage(), 'exception' => $e);
             }
@@ -198,7 +197,7 @@ class InstallController extends AppController {
             try {
                 $this->Server->create($this->data);
                 $server = $this->Server->save();
-                $result = array('success' => !!$server, 'message' => (!!$server ? '' : 'Unable to save server record!'), 'server' => $server);
+                $result = array('success' => !!$server, 'message' => (!!$server ? '' : 'Unable to save server record.'), 'server' => $server);
             } catch(Exception $e) {
                 $result = array('success' => false, 'message' => $e->getMessage(), 'exception' => $e);
             }
@@ -213,6 +212,10 @@ class InstallController extends AppController {
             $this->layout = 'install';
         } else if ($this->request->is('get')) {
             $this->layout = 'ajax';
+            
+            //install completed, store a completed install
+            $this->loadModel('ConnectionManager');
+            $this->Install->complete($this->ConnectionManager->getDataSource('default'));
         } else if ($this->request->is('post')) {
             return new CakeResponse(array('body' => json_encode(array('success' => 'true')), 'type' => 'json'));
         }

@@ -6,15 +6,20 @@ class Install extends AppModel {
     public $useTable = false;
 
     //Create database Schema
-    function createSchema($db) {
-        $this->execSqlFile($db, APP . 'Config' . DS . 'Sql' . DS . 'schema.sql');
-        $this->execSqlFile($db, APP . 'Config' . DS . 'Schema' . DS . 'db_acl.sql');
+    function createSchema($ds) {
+        $this->execSqlFile($ds, APP . 'Config' . DS . 'Sql' . DS . 'schema.sql');
+        $this->execSqlFile($ds, APP . 'Config' . DS . 'Schema' . DS . 'db_acl.sql');
     }
 
     //Insert Static Data
-    function insertStatic($db) {
-        $this->execSqlFile($db, APP . 'Config' . DS . 'Sql' . DS . 'engines.sql');
-        $this->execSqlFile($db, APP . 'Config' . DS . 'Sql' . DS . 'games.sql');
+    function insertStatic($ds) {
+        $this->execSqlFile($ds ,APP . 'Config' . DS . 'Sql' . DS . 'engines.sql');
+        $this->execSqlFile($ds, APP . 'Config' . DS . 'Sql' . DS . 'games.sql');
+    }
+    
+    //mark the install as completed
+    function complete($ds) {
+        $ds->rawQuery('INSERT INTO `' . $ds->config['database'] . '`.`installs` (`installed`) VALUES (1);');
     }
 
     //Save database configuration
@@ -60,13 +65,13 @@ class Install extends AppModel {
         return $str;
     }
 
-    function execSqlFile($db, $file) {
+    function execSqlFile($ds, $file) {
         $statements = file_get_contents($file);
         $statements = explode(';', $statements);
 
         foreach ($statements as $statement) {
             if (trim($statement) != '') {
-                $db->query($statement);
+                $ds->rawQuery($statement);
             }
         }
     }
