@@ -6,9 +6,8 @@ class InstallController extends AppController {
         $this->Auth->allow('*');
         parent::beforeFilter();
         //$install = new File(TMP . "inst.txt");
-
         //if (!$install->exists())
-	//exit("You are not allowed to be here!");
+        //exit("You are not allowed to be here!");
 
         App::uses('ConnectionManager', 'Model');
     }
@@ -30,12 +29,12 @@ class InstallController extends AppController {
                 'failText' => 'Please install and enable the cURL module.',
                 'pass' => function_exists('curl_init')
             ),
-            /*'url_fopen' => array(
-                'title' => 'url_fopen',
-                'successText' => '',
-                'failText' => '',
-                'pass' => ini_get('allow_url_fopen')
-            ),*/
+            /* 'url_fopen' => array(
+              'title' => 'url_fopen',
+              'successText' => '',
+              'failText' => '',
+              'pass' => ini_get('allow_url_fopen')
+              ), */
             'temp' => array(
                 'title' => 'Temp Directory',
                 'successText' => 'Your temporary directory is writtable',
@@ -46,7 +45,7 @@ class InstallController extends AppController {
                 'title' => 'Database Configuration',
                 'successText' => 'Your database configuration is writtable.',
                 'failText' => 'Please allow your webserver write permissions to ' . APP . 'Config' . DS . 'database.php',
-                'pass' => is_writable(APP . 'Config' . DS. 'database.php')
+                'pass' => is_writable(APP . 'Config' . DS . 'database.php')
             )
         ));
     }
@@ -60,19 +59,11 @@ class InstallController extends AppController {
         } else if ($this->request->is('post')) {
             //never cache this page, and do not output debug in our json
             $this->disableCache();
-            Configure::write('debug', 0);
+            //Configure::write('debug', 0);
 
             //try to connect to DB
             $link = mysql_connect($this->data['host'], $this->data['login'], $this->data['password']);
-            /*try {
-                $link = mysql_connect($this->data['host'], $this->data['login'], $this->data['password']);
-            } catch(Exception $e) {
-                return new CakeResponse(array('body' => json_encode(array(
-                    'success' => false,
-                    'message' => $e->getMessage()
-                )), 'type' => 'json'));
-            }*/
-            
+
             //if connection failed
             if (!$link) {
                 $result = array(
@@ -88,9 +79,14 @@ class InstallController extends AppController {
                         'message' => mysql_error()
                     );
                 } else {
-                    //the settings are correct, save settings
+                    //the settings are correct, save settings to file
                     $this->Install->saveDb($this->data);
                     
+                    //connect CakePHP to DB with new settings
+                    $this->loadModel('ConnectionManager');
+                    $this->ConnectionManager->drop('default');
+                    $this->ConnectionManager->create('default', $this->data);
+
                     //now open a handle to insert the schema
                     //TODO: Check is schema already exists and don't insert if it does.
                     $db = new mysqli($this->data['host'],
@@ -99,22 +95,21 @@ class InstallController extends AppController {
                                     $this->data['database']);
 
                     //execute SQL files
-                    $this->Install->execSqlFile($db, APP . 'Config/Sql/schema.sql');
-                    $this->Install->execSqlFile($db, App . 'Config/Schema/db_acl.sql');
+                    $this->Install->createSchema($db);
 
                     //insert static data files
-                    $this->Install->execSqlFile($db, APP . 'Config/Sql/engines.sql');
-                    $this->Install->execSqlFile($db, APP . 'Config/Sql/games.sql');
+                    $this->Install->insertStatic($db);
 
                     //insert SuperUser Group
                     $this->loadModel('Group');
-                    $this->Group->save(array('name' => 'SuperUser'));
+                    $this->Group->create(array('name' => 'SuperUser'));
+                    $this->Group->save();
 
                     //add base ACO
                     $this->Acl->Aco->create(array(
-                        'parent_id' => null,
-                        'alias' => 'controllers'
-                            )
+                            'parent_id' => null,
+                            'alias' => 'controllers'
+                        )
                     );
                     $this->Acl->Aco->save();
 
@@ -190,7 +185,7 @@ class InstallController extends AppController {
             return new CakeResponse(array('body' => json_encode($result), 'type' => 'json'));
         }
     }
-    
+
     //Placeholder
     function finish() {
         if (!$this->request->isAjax()) {

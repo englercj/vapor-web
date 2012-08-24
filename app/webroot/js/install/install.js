@@ -65,6 +65,7 @@
                         },
                         function(jqXHR, textStatus, errorThrown) {
                             console.log(arguments);
+                            $('body').append(jqXHR.responseText);
                         }
                     );
                 } else {
