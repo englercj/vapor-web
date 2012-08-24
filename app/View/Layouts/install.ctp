@@ -7,28 +7,20 @@
             echo $this->Html->meta('icon');
 
             echo $this->fetch('meta');
-
+            
             //echo $this->Html->css('bootstrap/bootstrap');
             echo $this->Html->css('bootstrap/jquery-ui-1.8.16.custom');
             //echo $this->Html->css('bootstrap/jquery.ui.1.8.16.ie');
             echo $this->Html->css('chosen/chosen');
-            echo $this->Html->css('install/install');
-            echo $this->Html->css('loader');
-            echo $this->Html->css('main');
+            
+            echo $this->AssetCompress->css('all');
             echo $this->fetch('css');
 
             //jquery
-            echo $this->Html->script('jquery/jquery.min');
-            echo $this->Html->script('jquery/jquery-ui.min');
-            echo $this->Html->script('jquery/jquery.validate.min');
-            echo $this->Html->script('jquery/chosen.jquery.min');
+            echo $this->AssetCompress->script('all-jquery');
             
             //vapor framework
-            echo $this->Html->script('vapor/vapor');
-            echo $this->Html->script('vapor/ajax');
-            echo $this->Html->script('vapor/html');
-            echo $this->Html->script('vapor/ui');
-            echo $this->Html->script('vapor/util');
+            echo $this->AssetCompress->script('all-vapor');
             
             //install scripts
             echo $this->Html->script('install/install');

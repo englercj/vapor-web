@@ -1,0 +1,29 @@
+LESS CakePHP plugin
+
+Used to compile LESS CSS code on-the-fly. Combines these two awesome
+projects:
+
+- Asset Compress plugin.
+  (https://github.com/markstory/asset_compress)
+
+- LessPHP.
+  (https://github.com/leafo/lessphp)
+
+How to setup:
+
+1. Install Asset Compress and make sure it is working 100%.
+2. Clone (or add as a submodule) this plugin.
+3. Make sure you init and update the /vendors/lessphp submodule.
+4. Make your APP/config/asset_compress.ini file look like:
+
+    [Css]
+    paths[] = WEBROOT/css/
+    cachePath = WEBROOT/cache_css/
+    filters[] = Less.LessFilter
+    filters[] = CssMin
+
+Enjoy.
+
+If you would like to use another version (older/newer) of LessPHP than the one
+in the one in the submodule, place it in APP/vendors and the processor will use
+that instead.
