@@ -15,6 +15,10 @@ class InstallController extends AppController {
         
         if($this->installed) {
             $this->redirect('/');
+        } else {
+            //never cache this page, and do not output debug in our json
+            $this->disableCache();
+            Configure::write('debug', 0);
         }
     }
 
@@ -58,15 +62,15 @@ class InstallController extends AppController {
 
     //installs database schema and static data
     function database() {
+        //never cache this page, and do not output debug in our json
+        $this->disableCache();
+        Configure::write('debug', 0);
+
         if (!$this->request->isAjax()) {
             $this->layout = 'install';
         } else if ($this->request->is('get')) {
             $this->layout = 'ajax';
         } else if ($this->request->is('post')) {
-            //never cache this page, and do not output debug in our json
-            $this->disableCache();
-            Configure::write('debug', 0);
-
             //try to connect to DB
             $link = mysql_connect($this->data['host'], $this->data['login'], $this->data['password']);
 
@@ -135,15 +139,15 @@ class InstallController extends AppController {
 
     //installs SMTP configuration
     function email() {
+        //never cache this page, and do not output debug in our json
+        $this->disableCache();
+        Configure::write('debug', 0);
+
         if (!$this->request->isAjax()) {
             $this->layout = 'install';
         } else if ($this->request->is('get')) {
             $this->layout = 'ajax';
         } else if ($this->request->is('post')) {
-            //never cache this page, and do not output debug in our json
-            $this->disableCache();
-            Configure::write('debug', 0);
-            
             if(!isset($this->data['skip'])) {
                 $this->Install->saveEmail($this->data);
             }
@@ -155,15 +159,15 @@ class InstallController extends AppController {
 
     //installs the superuser
     function superuser() {
+        //never cache this page, and do not output debug in our json
+        $this->disableCache();
+        Configure::write('debug', 0);
+
         if (!$this->request->isAjax()) {
             $this->layout = 'install';
         } else if ($this->request->is('get')) {
             $this->layout = 'ajax';
         } else if ($this->request->is('post')) {
-            //never cache this page, and do not output debug in our json
-            $this->disableCache();
-            Configure::write('debug', 0);
-            
             //insert user
             $this->loadModel('User');
             
@@ -183,15 +187,15 @@ class InstallController extends AppController {
 
     //installs a server
     function server() {
+        //never cache this page, and do not output debug in our json
+        $this->disableCache();
+        Configure::write('debug', 0);
+
         if (!$this->request->isAjax()) {
             $this->layout = 'install';
         } else if ($this->request->is('get')) {
             $this->layout = 'ajax';
         } else if ($this->request->is('post')) {
-            //never cache this page, and do not output debug in our json
-            $this->disableCache();
-            Configure::write('debug', 0);
-
             $this->loadModel('Server');
             
             try {
@@ -214,8 +218,10 @@ class InstallController extends AppController {
             $this->layout = 'ajax';
             
             //install completed, store a completed install
-            $this->loadModel('ConnectionManager');
-            $this->Install->complete($this->ConnectionManager->getDataSource('default'));
+            //TODO: Checks to ensure it is completed.
+            $this->install->create();
+            //$this->loadModel('ConnectionManager');
+            //$this->Install->complete($this->ConnectionManager->getDataSource('default'));
         } else if ($this->request->is('post')) {
             return new CakeResponse(array('body' => json_encode(array('success' => 'true')), 'type' => 'json'));
         }

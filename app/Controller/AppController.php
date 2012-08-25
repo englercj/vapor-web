@@ -25,12 +25,14 @@ class AppController extends Controller {
     public function beforeFilter() {
         $allowed = array('install');
         
-        try {
+        $this->install = new File(APP . 'installed');
+        $this->installed = $this->install->exists();
+        /*try {
             $this->loadModel('Install');
             $this->installed = ($this->Install->find('count') > 0);
         } catch(Exception $e) {
             $this->installed = false;
-        }
+        }*/
         
         if (!$this->installed && !(in_array($this->params["controller"], $allowed))) {
             $this->redirect(array('controller' => 'install', 'action' => 'index'));
