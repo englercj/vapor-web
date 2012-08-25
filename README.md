@@ -2,10 +2,11 @@
 
 ## User Setup
 
- - Setup temp directory permissions `chmod -R 777 app/tmp`
- - Copy over `database.default.php` and `email.default.php`
- - Configure local webserver
- - Visit `http://vapor.localhost/install`
+ 1. Download the application
+ 2. Setup temp directory permissions
+   * `chmod -R 777 app/tmp`
+ 3. Configure local webserver
+ 4. Visit `http://vapor.example.com/install`
 
 ## Setup Steps
 
