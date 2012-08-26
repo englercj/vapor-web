@@ -32,4 +32,9 @@ class AppController extends Controller {
             $this->redirect(array('controller' => 'install', 'action' => 'index'));
         }
     }
+    
+    //utility method to make setFlash more usable for how the views use it
+    public function setFlash($message, $key = 'flash', $params = array()) {
+        $this->Session->setFlash($message, 'flash', $params, $key);
+    }
 }
