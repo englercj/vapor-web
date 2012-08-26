@@ -220,8 +220,6 @@ class InstallController extends AppController {
             //install completed, store a completed install
             //TODO: Checks to ensure it is completed.
             $this->install->create();
-            //$this->loadModel('ConnectionManager');
-            //$this->Install->complete($this->ConnectionManager->getDataSource('default'));
         } else if ($this->request->is('post')) {
             return new CakeResponse(array('body' => json_encode(array('success' => 'true')), 'type' => 'json'));
         }

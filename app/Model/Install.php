@@ -16,11 +16,6 @@ class Install extends AppModel {
         $this->execSqlFile($ds ,APP . 'Config' . DS . 'Sql' . DS . 'engines.sql');
         $this->execSqlFile($ds, APP . 'Config' . DS . 'Sql' . DS . 'games.sql');
     }
-    
-    //mark the install as completed
-    function complete($ds) {
-        $ds->rawQuery('INSERT INTO `' . $ds->config['database'] . '`.`installs` (`installed`) VALUES (1);');
-    }
 
     //Save database configuration
     function saveDb($data = array()) {
