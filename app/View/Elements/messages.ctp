@@ -19,4 +19,3 @@
         }
     ?>
 </div>
-echo $this->Session->flash(); ?>
