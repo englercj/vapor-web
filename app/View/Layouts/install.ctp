@@ -15,15 +15,10 @@
             
             echo $this->AssetCompress->css('all');
             echo $this->fetch('css');
-
-            //jquery
+            
             echo $this->AssetCompress->script('all-jquery');
-            
-            //vapor framework
             echo $this->AssetCompress->script('all-vapor');
-            
-            //install scripts
-            echo $this->Html->script('install/install');
+            echo $this->AssetCompress->script('all-install');
             
             //fetch additional scripts
             echo $this->fetch('script');
