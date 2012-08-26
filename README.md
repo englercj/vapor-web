@@ -4,9 +4,17 @@
 
  1. Download the application
  2. Setup temp directory permissions
-   * `chmod -R 777 app/tmp`
+   - `chmod -R 777 app/tmp`
  3. Configure local webserver
  4. Visit `http://vapor.example.com/install`
+
+## Requirements
+
+ - Webserver
+   - Apache2, Nginx, etc.
+ - PHP 5.2.8+
+ - SQL Database Server
+   - MySQL, SQLite, etc.
 
 ## Setup Steps
 
