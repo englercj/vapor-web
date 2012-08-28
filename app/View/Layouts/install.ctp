@@ -14,6 +14,7 @@
             echo $this->Html->css('chosen/chosen');
             
             echo $this->AssetCompress->css('all');
+            echo $this->AssetCompress->css('install');
             echo $this->fetch('css');
             
             echo $this->AssetCompress->script('all-jquery');
@@ -29,7 +30,7 @@
             <h1>Vapor</h1>
         </header>
 
-        <section id="install" class="ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
+        <section id="install" class="ui-corner-all ui-helper-clearfix">
             <?php echo $this->fetch('content'); ?>
         </section>
 
