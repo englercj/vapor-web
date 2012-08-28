@@ -14,11 +14,11 @@
             echo $this->Html->css('chosen/chosen');
             
             echo $this->AssetCompress->css('all');
+            echo $this->AssetCompress->css('login');
             echo $this->fetch('css');
             
             echo $this->AssetCompress->script('all-jquery');
             echo $this->AssetCompress->script('all-vapor');
-            echo $this->AssetCompress->script('all-install');
             
             //fetch additional scripts
             echo $this->fetch('script');
@@ -26,10 +26,10 @@
     </head>
     <body>
         <header>
-            <h1>Vapor</h1>
+            <!--<h1>Vapor</h1>-->
         </header>
 
-        <section id="install" class="ui-widget ui-widget-content ui-corner-all ui-helper-clearfix">
+        <section id="login" class="ui-corner-all ui-helper-clearfix">
             <?php echo $this->fetch('content'); ?>
         </section>
 

@@ -112,7 +112,7 @@ class UsersController extends AppController {
     }
 
     public function login() {
-        $this->layout = 'install';
+        $this->layout = 'login';
         
         //already logged in
         if ($this->Session->read('Auth.User')) {
