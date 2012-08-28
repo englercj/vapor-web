@@ -14,8 +14,8 @@ class AppController extends Controller {
                 'Actions' => array('actionPath' => 'controllers')
             ),
             'loginAction' => array('controller' => 'users', 'action' => 'login'),
-            'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
-            'loginRedirect' => array('controller' => 'posts', 'action' => 'add')
+            'loginRedirect' => '/',
+            'logoutRedirect' => array('controller' => 'users', 'action' => 'login')
         ),
         'Session'
     );
@@ -23,6 +23,7 @@ class AppController extends Controller {
     public $helpers = array('Html', 'Form', 'Session', 'AssetCompress.AssetCompress');
 
     public function beforeFilter() {
+        //controllers that can be viewed before the app is installed
         $allowed = array('install');
         
         $this->install = new File(APP . 'installed');
