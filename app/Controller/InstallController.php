@@ -66,7 +66,7 @@ class InstallController extends AppController {
             ),
             'cache' => array(
                 'title' => 'Cache Settings',
-                'successText' => 'The <em>' . $cacheSettings['engine'] . 'Engine</em> is being used for core caching. To change the config edit APP/Config/core.php ',
+                'successText' => 'The <em>' . $cacheSettings['engine'] . 'Engine</em> is being used for core caching. To change the config edit ' . APP . DS .'Config' . DS . 'core.php',
                 'failText' => 'Your cache is NOT working. Please check the settings in ' . APP . DS .'Config' . DS . 'core.php',
                 'pass' => !!$cacheSettings
             )
