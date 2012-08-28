@@ -25,6 +25,7 @@ class InstallController extends AppController {
     //runs environment checks
     function index() {
         $this->layout = 'install';
+        $cacheSettings = Cache::settings();
 
         $this->set('checks', array(
             'version' => array(
@@ -56,6 +57,18 @@ class InstallController extends AppController {
                 'successText' => 'Your database configuration is writtable.',
                 'failText' => 'Please allow your webserver write permissions to ' . APP . 'Config' . DS . 'database.php',
                 'pass' => is_writable(APP . 'Config' . DS . 'database.php')
+            ),
+            'email' => array(
+                'title' => 'Email Configuration',
+                'successText' => 'Your email configuration is writtable.',
+                'failText' => 'Please allow your webserver write permissions to ' . APP . 'Config' . DS . 'email.php',
+                'pass' => is_writable(APP . 'Config' . DS . 'email.php')
+            ),
+            'cache' => array(
+                'title' => 'Cache Settings',
+                'successText' => 'The <em>' . $cacheSettings['engine'] . 'Engine</em> is being used for core caching. To change the config edit APP/Config/core.php ',
+                'failText' => 'Your cache is NOT working. Please check the settings in ' . APP . DS .'Config' . DS . 'core.php',
+                'pass' => !!$cacheSettings
             )
         ));
     }
