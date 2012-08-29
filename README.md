@@ -18,51 +18,26 @@
 
 ## Setup Steps
 
- - Randomly Generate Security.salt & Security.cipherSeed
-   - Not sure how yet...
- - Gather DB config info
-   - Save `database.php` config
-   - Exec `Config/Sql/schema.sql`
-   - Exec `Config/Schema/db_acl.sql`
-   - Exec `Config/Sql/engines.sql`
-   - Exec `Config/Sql/games.sql`
-   - Insert SuperUser Group (`Group->insert()`)
-   - Create ACOs using AclComponent
-     - `$this->Acl->Aco->create(array('parent_id' => null, 'alias' => 'controllers'));`
-     - `$this->Acl->Aco->save();`
- - Gather Email config info
-   - Save `email.php` config
-   - Offer option to send a test email
- - Gather username/password for SuperUser
-   - Add user via `User->add()`
- - Gather managed server info
-   - Add via `Server->add()`
-
-## Setup Needs
-
- - Database Config
-   - 'datasource' => 'Database/Mysql'
-     - Database/Mysql          - MySQL 4 & 5,
-     - Database/Sqlite         - SQLite (PHP5 only),
-     - Database/Postgres       - PostgreSQL 7 and higher,
-     - Database/Sqlserver      - Microsoft SQL Server 2005 and higher
-   - 'persistent' => false,
-   - 'host' => 'localhost',
-   - 'login' => 'user',
-   - 'password' => 'password',
-   - 'database' => 'database_name',
-   - 'prefix' => '',
- - SMTP Configuration
-   - 'from' => array('site@localhost' => 'My Site'),
-   - 'host' => 'localhost',
-   - 'port' => 25,
-   - 'timeout' => 30,
-   - 'username' => 'user',
-   - 'password' => 'secret',
-   - 'client' => null,
-   - 'log' => false
- - Security.salt [apg -m 64 -a 1 -n 1 -M NCL ; random alphanum 64 len]
- - Security.cipherSeed [apg -m 32 -a 1 -n 1 -M N ; random num 32 len]
+ - [DONE] Randomly Generate Security.salt & Security.cipherSeed
+   - [DONE] Replace codes in core.php with random values
+ - [DONE] Gather DB config info
+   - [DONE] Save `database.php` config
+   - [DONE] Exec `Config/Sql/schema.sql`
+   - [DONE] Exec `Config/Schema/db_acl.sql`
+   - [DONE] Exec `Config/Sql/engines.sql`
+   - [DONE] Exec `Config/Sql/games.sql`
+   - [DONE] Insert SuperUser Group (`Group->insert()`)
+   - [DONE] Create All ACOs
+   - [DONE] Give SuperUser access to root ACO
+ - [!!!!] Gather Email config info
+   - [DONE] Save `email.php` config
+   - [!!!!] Offer option to send a test email
+ - [DONE] Gather username/password for SuperUser
+   - [DONE] Add user via `User->add()`
+ - [!!!!] Gather managed server info
+   - [DONE] Add via `Server->add()`
+   - [!!!!] Get information about server via handshake
+ - [DONE] Mark instlal as completed
 
 ## Nginx Config
 ```

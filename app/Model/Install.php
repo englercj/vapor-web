@@ -19,7 +19,8 @@ class Install extends AppModel {
 
     //Save database configuration
     function saveDb($data = array()) {
-        return $this->saveX(array(
+        return $this->saveX(
+                array(
                     'Database/Mysql',
                     '%host%',
                     '%port%',
@@ -28,25 +29,66 @@ class Install extends AppModel {
                     '%password%',
                     '%prefix%',
                     '%encoding%'
-                        ), $data, 'database'
-        );
+                ), 
+                $data,
+                'database.php',
+                'database.php.default'
+            );
     }
 
     //Save email configuration
     function saveEmail($data = array()) {
-        return $this->saveX(array(
+        return $this->saveX(
+                array(
                     '%from%',
                     '%host%',
                     "'%port%'",
                     '%username%',
                     '%password%',
-                        ), $data, 'email'
+                ),
+                $data,
+                'email.php',
+                'email.php.default'
+            );
+    }
+    
+    //Save random Security Salt
+    function saveSalt($salt = null) {
+        if($salt == null) {
+            //generate random salt
+            $salt = $this->randString('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789', 64);
+        }
+        
+        $this->saveX(
+            array('dqrfLYPeqno1Z5ulPDrXbkdInpG4YmqdJgqsTmaxCdArO8jRLlq81gAhkW1vaHuk'),
+            array($salt),
+            'core.php',
+            'core.php'
         );
+        
+        return $salt;
+    }
+    
+    //Save random Cipher Seed
+    function saveCipherSeed($seed = null) {
+        if($seed == null) {
+            //generate random seed
+            $seed = $this->randString('0123456789', 32);
+        }
+        
+        $this->saveX(
+            array('74656082139533326018816721372566'),
+            array($seed),
+            'core.php',
+            'core.php'
+        );
+        
+        return $seed;
     }
 
-    function saveX($tokens, $data, $which) {
-        $config = APP . 'Config/' . $which . '.php';
-        $template = APP . 'Config/' . $which . '.php.default';
+    function saveX($tokens, $data, $file, $file_default) {
+        $config = APP . 'Config/' . $file;
+        $template = APP . 'Config/' . $file_default;
         
         $new_file = implode(file($template));
 
@@ -69,6 +111,15 @@ class Install extends AppModel {
                 $ds->rawQuery($statement);
             }
         }
+    }
+    
+    function randString($tokens, $length) {
+        $string = '';
+        for ($i = 0; $i < $length; $i++) {
+            $string .= $tokens[rand(0, strlen($tokens) - 1)];
+        }
+        
+        return $string;
     }
 
 }

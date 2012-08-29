@@ -1,6 +1,6 @@
 (function($, window, undefined) {
     $(function() {
-        var steps = ['index', 'database', 'email', 'superuser', 'server', 'finish'],
+        var steps = ['index', 'security', 'database', 'email', 'superuser', 'server', 'finish'],
         step = 0,
         stepname = window.location.pathname.split('/')[2],
         $install = $('#install');

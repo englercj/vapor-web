@@ -64,6 +64,12 @@ class InstallController extends AppController {
                 'failText' => 'Please allow your webserver write permissions to ' . APP . 'Config' . DS . 'email.php',
                 'pass' => is_writable(APP . 'Config' . DS . 'email.php')
             ),
+            'core' => array(
+                'title' => 'Core Configuration',
+                'successText' => 'Your core configuration is writtable.',
+                'failText' => 'Please allow your webserver write permissions to ' . APP . 'Config' . DS . 'core.php',
+                'pass' => is_writable(APP . 'Config' . DS . 'core.php')
+            ),
             'cache' => array(
                 'title' => 'Cache Settings',
                 'successText' => 'The <em>' . $cacheSettings['engine'] . 'Engine</em> is being used for core caching. To change the config edit ' . APP . DS .'Config' . DS . 'core.php',
@@ -72,17 +78,34 @@ class InstallController extends AppController {
             )
         ));
     }
+    
+    //installs a random Security.salt and Secuirt.cipherSeed
+    function security() {
+        if (!$this->request->isAjax()) {
+            $this->layout = 'install'; //just display page
+        } else if ($this->request->is('get')) {
+            $this->layout = 'ajax'; //unused
+        } else if ($this->request->is('post')) {
+            //generate security codes
+            $result = array(
+                'success' => true,
+                'message' => 'Generated a random Security Salt and Cipher Seed',
+                'codes' => array()
+            );
+            
+            $result['codes']['salt'] = $this->Install->saveSalt();
+            $result['codes']['seed'] = $this->Install->saveCipherSeed();
+            
+            return new CakeResponse(array('body' => json_encode($result), 'type' => 'json'));
+        }
+    }
 
     //installs database schema and static data
     function database() {
-        //never cache this page, and do not output debug in our json
-        $this->disableCache();
-        Configure::write('debug', 0);
-
         if (!$this->request->isAjax()) {
-            $this->layout = 'install';
+            $this->layout = 'install'; //just display page
         } else if ($this->request->is('get')) {
-            $this->layout = 'ajax';
+            $this->layout = 'ajax'; //unused
         } else if ($this->request->is('post')) {
             //try to connect to DB
             $link = mysql_connect($this->data['host'], $this->data['login'], $this->data['password']);
@@ -146,14 +169,10 @@ class InstallController extends AppController {
 
     //installs SMTP configuration
     function email() {
-        //never cache this page, and do not output debug in our json
-        $this->disableCache();
-        Configure::write('debug', 0);
-
         if (!$this->request->isAjax()) {
-            $this->layout = 'install';
+            $this->layout = 'install'; //just display page
         } else if ($this->request->is('get')) {
-            $this->layout = 'ajax';
+            $this->layout = 'ajax'; //unused
         } else if ($this->request->is('post')) {
             if (!isset($this->data['skip'])) {
                 $this->Install->saveEmail($this->data);
@@ -166,14 +185,10 @@ class InstallController extends AppController {
 
     //installs the superuser
     function superuser() {
-        //never cache this page, and do not output debug in our json
-        $this->disableCache();
-        Configure::write('debug', 0);
-
         if (!$this->request->isAjax()) {
-            $this->layout = 'install';
+            $this->layout = 'install'; //just display page
         } else if ($this->request->is('get')) {
-            $this->layout = 'ajax';
+            $this->layout = 'ajax'; //unused
         } else if ($this->request->is('post')) {
             //insert user
             $this->loadModel('User');
@@ -194,14 +209,10 @@ class InstallController extends AppController {
 
     //installs a server
     function server() {
-        //never cache this page, and do not output debug in our json
-        $this->disableCache();
-        Configure::write('debug', 0);
-
         if (!$this->request->isAjax()) {
-            $this->layout = 'install';
+            $this->layout = 'install'; //just display page
         } else if ($this->request->is('get')) {
-            $this->layout = 'ajax';
+            $this->layout = 'ajax'; //unused
         } else if ($this->request->is('post')) {
             $this->loadModel('Server');
 
@@ -216,16 +227,19 @@ class InstallController extends AppController {
             return new CakeResponse(array('body' => json_encode($result), 'type' => 'json'));
         }
     }
-
-    //Placeholder
+    
     function finish() {
         if (!$this->request->isAjax()) {
-            $this->layout = 'install';
+            $this->layout = 'install'; //when page is loaded, mark install completed
+            
+            //install completed, store a completed install
+            //TODO: Checks to ensure it is actually completed.
+            $this->install->create();
         } else if ($this->request->is('get')) {
-            $this->layout = 'ajax';
+            $this->layout = 'ajax'; //when page is loaded, mark install completed
 
             //install completed, store a completed install
-            //TODO: Checks to ensure it is completed.
+            //TODO: Checks to ensure it is actually completed.
             $this->install->create();
         } else if ($this->request->is('post')) {
             return new CakeResponse(array('body' => json_encode(array('success' => 'true')), 'type' => 'json'));

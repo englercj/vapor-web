@@ -1,5 +1,5 @@
-<div class="progressbar" data-startvalue="80"></div>
-<span class="progress-text"><span class="blue">Step 5 of 5:</span> Add Managed Server</span>
+<div class="progressbar" data-startvalue="85"></div>
+<span class="progress-text"><span class="blue">Step 6 of 7:</span> Add Managed Server</span>
 
 <p>Finally, lets add a server to manage. You can add more later via the UI.</p>
 

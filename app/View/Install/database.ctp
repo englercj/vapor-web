@@ -1,5 +1,5 @@
-<div class="progressbar" data-startvalue="20"></div>
-<span class="progress-text"><span class="blue">Step 2 of 5:</span> Database Configuration</span>
+<div class="progressbar" data-startvalue="43"></div>
+<span class="progress-text"><span class="blue">Step 3 of 7:</span> Database Configuration</span>
 
 <p>Next, let's connect up to your Database.</p>
 

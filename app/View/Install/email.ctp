@@ -1,5 +1,5 @@
-<div class="progressbar" data-startvalue="40"></div>
-<span class="progress-text"><span class="blue">Step 3 of 5:</span> Email Configuration</span>
+<div class="progressbar" data-startvalue="57"></div>
+<span class="progress-text"><span class="blue">Step 4 of 7:</span> Email Configuration</span>
 
 <p>Now lets setup your SMTP servers; SMTP is currently the only supported method.</p>
 

@@ -1,5 +1,5 @@
-<div class="progressbar" data-startvalue="0"></div>
-<span class="progress-text"><span class="blue">Step 1 of 5:</span> Environment Check</span>
+<div class="progressbar" data-startvalue="14"></div>
+<span class="progress-text"><span class="blue">Step 1 of 7:</span> Environment Check</span>
 
 <p>Before we start, let's ensure your environment is setup correctly.</p>
 
