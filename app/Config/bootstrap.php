@@ -185,3 +185,23 @@ CakeLog::config('error', array(
  * Load Vapor configuration file
  */
 Configure::load('vapor');
+
+/**
+ * Ensure database.php and email.php exist 
+ */
+App::uses('Folder', 'Utility');
+App::uses('File', 'Utility');
+
+$db_path = APP . 'Config' . DS . 'database.php';
+$db_file = new File($db_path);
+$db_default = new File($db_path . '.default');
+
+$em_path = APP . 'Config' . DS . 'email.php';
+$em_file = new File($em_path);
+$em_default = new File($em_path . '.default');
+
+if(!$db_file->exists())
+    $db_default->copy($db_path);
+
+if(!$em_file->exists())
+    $em_default->copy($em_path);
