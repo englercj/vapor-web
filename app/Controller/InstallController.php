@@ -355,7 +355,7 @@ class InstallController extends AppController {
             $permRoot = $permRoot[0];
         }
         
-        $perms = Configure::read('Vapor.Permissions');
+        $perms = Configure::read('vapor.permissions');
         foreach($perms as $perm => $subs) {
             $node = $aco->node('perms/' . $perm);
             
