@@ -249,7 +249,7 @@ class InstallController extends AppController {
     /////////////////////////////////////////////////////////////////////////
     // ACO builders
     /////////////////////////////////////////////////////////////////////////
-    function build_acl() {
+    function build_acl($respond = false) {
         /*if (!Configure::read('debug')) {
             return $this->_stop();
         }*/
@@ -343,8 +343,13 @@ class InstallController extends AppController {
             }
         }
         if (count($log) > 0) {
-            debug($log);
+            foreach($log as $entry) {
+                $this->log($entry, 'debug');
+            }
         }
+        
+        if($respond) //for running a GET to this action, will be removed on release
+            return new CakeResponse(array('body' => json_encode(array('success' => true)), 'type' => 'json'));
     }
 
     function _getClassMethods($ctrlName = null) {
