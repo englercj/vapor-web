@@ -5,6 +5,7 @@
  */
 	Router::connect('/', array('controller' => 'dashboard', 'action' => 'index'));
 	Router::connect('/login', array('controller' => 'users', 'action' => 'login'));
+	Router::connect('/logout', array('controller' => 'users', 'action' => 'logout'));
     
 /**
  * Connect pages controller routes 
