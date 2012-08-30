@@ -23,7 +23,7 @@ class AppController extends Controller {
     public $helpers = array('Html', 'Form', 'Session', 'AssetCompress.AssetCompress');
 
     public function beforeFilter() {
-        //controllers that can be viewed before the app is installed
+        //Check if we need to redirect to install pages
         $allowed = array('install');
         
         $this->install = new File(APP . 'installed');
@@ -32,6 +32,12 @@ class AppController extends Controller {
         if (!$this->installed && !(in_array($this->params["controller"], $allowed))) {
             $this->redirect(array('controller' => 'install', 'action' => 'index'));
         }
+        
+        //Setup logged_in and current_user variables
+        $logged_in = $this->Auth->loggedIn();
+        $current_user = $this->Auth->user();
+        
+        $this->set(compact('logged_in', 'current_user'));
     }
     
     //utility method to make setFlash more usable for how the views use it
