@@ -14,15 +14,25 @@ class AppController extends Controller {
                 'Actions' => array('actionPath' => 'controllers')
             ),
             'loginAction' => array('controller' => 'users', 'action' => 'login'),
-            'loginRedirect' => '/',
-            'logoutRedirect' => array('controller' => 'users', 'action' => 'login')
+            'loginRedirect' => array('controller' => 'dashboard', 'action' => 'index'),
+            'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
+            'loginError' => 'Your username or password is incorrect.',
+            'authError' => 'You do not have access to that page.',
+            'flash' => array('element' => 'flash', 'key' => 'bad'),
+            'autoRedirect' => false
         ),
         'Session'
     );
     
     public $helpers = array('Html', 'Form', 'Session', 'AssetCompress.AssetCompress');
+    
+    public $allowedActions = array();
 
     public function beforeFilter() {
+        if(!$this->Session->valid()) {
+            $this->Session->renew();
+        }
+        
         //Check if we need to redirect to install pages
         $allowed = array('install');
         
@@ -38,6 +48,22 @@ class AppController extends Controller {
         $current_user = $this->Auth->user();
         
         $this->set(compact('logged_in', 'current_user'));
+        
+        //Check for auth errors and redirect to main page
+        /*$path = 'controllers/' . $this->params['controller'] . '/' . $this->params['action'];
+        if($this->Acl->check($current_user, $path)) {
+            return true;
+        } else if(in_array($this->params['action'], $this->allowedActions)) {
+            return true;
+        } else {
+            if(!$logged_in) {
+                $this->setFlash('You must log in to access this page', 'bad');
+                $this->redirect(array('controller' => 'users', 'action' => 'login'));
+            } else {
+                //render the access denied page
+                $this->redirect(array('controller' => 'pages', 'action' => 'display', 'denied'));
+            }
+        }*/
     }
     
     //utility method to make setFlash more usable for how the views use it
