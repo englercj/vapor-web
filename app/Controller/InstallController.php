@@ -306,14 +306,14 @@ class InstallController extends AppController {
                 }
             }
             // find / make controller node
-            $controllerNode = $aco->node('controllers/' . $ctrlName);
+            $controllerNode = $aco->node('controllers/' . str_replace('.', '/', $ctrlName));
             if (!$controllerNode) {
                 if ($this->_isPlugin($ctrlName)) {
                     $pluginNode = $aco->node('controllers/' . $this->_getPluginName($ctrlName));
                     $aco->create(array('parent_id' => $pluginNode['0']['Aco']['id'], 'model' => null, 'alias' => $this->_getPluginControllerName($ctrlName)));
                     $controllerNode = $aco->save();
                     $controllerNode['Aco']['id'] = $aco->id;
-                    $log[] = 'Created Aco node for ' . $this->_getPluginControllerName($ctrlName) . ' ' . $this->_getPluginName($ctrlName) . ' Plugin Controller';
+                    $log[] = 'Created Aco node for ' . $this->_getPluginControllerName($ctrlName) . ', ' . Inflector::humanize($this->_getPluginName($ctrlName)) . ' Plugin Controller';
                 } else {
                     $aco->create(array('parent_id' => $root['Aco']['id'], 'model' => null, 'alias' => $ctrlName));
                     $controllerNode = $aco->save();
@@ -334,7 +334,8 @@ class InstallController extends AppController {
                     unset($methods[$k]);
                     continue;
                 }
-                $methodNode = $aco->node('controllers/' . $ctrlName . '/' . $method);
+                // find / make controller node
+                $methodNode = $aco->node('controllers/' . str_replace('.', '/', $ctrlName) . '/' . $method);
                 if (!$methodNode) {
                     $aco->create(array('parent_id' => $controllerNode['Aco']['id'], 'model' => null, 'alias' => $method));
                     $methodNode = $aco->save();
@@ -354,7 +355,7 @@ class InstallController extends AppController {
 
     function _getClassMethods($ctrlName = null) {
         if ($this->_isPlugin($ctrlName)) {
-            App::uses($this->_getPluginControllerName($ctrlName), $this->_getPluginName($ctrlName) . 'Controller');
+            App::uses($this->_getPluginControllerName($ctrlName), $this->_getPluginName($ctrlName) . '.Controller');
         }
         else
             App::uses($ctrlName . 'Controller', 'Controller');
@@ -407,7 +408,7 @@ class InstallController extends AppController {
     }
 
     function _getPluginControllerName($ctrlName = null) {
-        $arr = String::tokenize($ctrlName, '/');
+        $arr = String::tokenize($ctrlName, '.');
         if (count($arr) == 2) {
             return $arr[1];
         } else {
@@ -452,12 +453,13 @@ class InstallController extends AppController {
 
                     // Get the controller name
                     //$file = Inflector::camelize(substr($file, 0, strlen($file) - strlen('Controller.php')));
-                    if (!preg_match('/^' . Inflector::humanize($pluginName) . 'App/', $file)) {
+                    $plugin = str_replace(' ', '', Inflector::humanize($pluginName));
+                    if (!preg_match('/^' . $plugin . 'App/', $file)) {
                         $file = str_replace('.php', '', $file);
 
                         /// Now prepend the Plugin name ...
                         // This is required to allow us to fetch the method names.
-                        $arr[] = Inflector::humanize($pluginName) . "." . $file;
+                        $arr[] = $pluginName . '.' . $file;
                     }
                 }
             }
