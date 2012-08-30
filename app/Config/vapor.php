@@ -1,7 +1,14 @@
 <?php
-/*
- * Vapor.option: A Vapor option
- */
-$config['Vapor'] = array();
+
+$config['Vapor'] = array(
+    //******************************
+    //DO NOT MODIFY BELOW THIS LINE
+    //******************************
+    'Permissions' => array(
+        'dashboard' => array(
+            'widget1'
+        )
+    )
+);
 
 ?>

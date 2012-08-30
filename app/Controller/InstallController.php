@@ -101,6 +101,7 @@ class InstallController extends AppController {
     }
 
     //installs database schema and static data
+    //TODO: This takes a long time (especially the ACO part), need feedback of some kind
     function database() {
         if (!$this->request->isAjax()) {
             $this->layout = 'install'; //just display page
@@ -258,7 +259,6 @@ class InstallController extends AppController {
         $aco = & $this->Acl->Aco;
         $root = $aco->node('controllers');
         if (!$root) {
-            $this->log("Creating root", LOG_DEBUG);
             $aco->create(array('parent_id' => null, 'model' => null, 'alias' => 'controllers'));
             $root = $aco->save();
             $root['Aco']['id'] = $aco->id;
@@ -313,12 +313,12 @@ class InstallController extends AppController {
                     $aco->create(array('parent_id' => $pluginNode['0']['Aco']['id'], 'model' => null, 'alias' => $this->_getPluginControllerName($ctrlName)));
                     $controllerNode = $aco->save();
                     $controllerNode['Aco']['id'] = $aco->id;
-                    $log[] = 'Created Aco node for ' . $this->_getPluginControllerName($ctrlName) . ', ' . Inflector::humanize($this->_getPluginName($ctrlName)) . ' Plugin Controller';
+                    $log[] = 'Created Aco node for ' . str_replace('.', '/', $ctrlName);
                 } else {
                     $aco->create(array('parent_id' => $root['Aco']['id'], 'model' => null, 'alias' => $ctrlName));
                     $controllerNode = $aco->save();
                     $controllerNode['Aco']['id'] = $aco->id;
-                    $log[] = 'Created Aco node for ' . $ctrlName;
+                    $log[] = 'Created Aco node for ' . str_replace('.', '/', $ctrlName);
                 }
             } else {
                 $controllerNode = $controllerNode[0];
@@ -339,11 +339,47 @@ class InstallController extends AppController {
                 if (!$methodNode) {
                     $aco->create(array('parent_id' => $controllerNode['Aco']['id'], 'model' => null, 'alias' => $method));
                     $methodNode = $aco->save();
-                    $log[] = 'Created Aco node for ' . $method;
+                    $log[] = 'Created Aco node for ' . str_replace('.', '/', $ctrlName) . '/' . $method;
                 }
             }
         }
-        if (count($log) > 0) {
+        
+        //Now add custom permissions
+        $permRoot = $aco->node('perms');
+        if (!$permRoot) {
+            $aco->create(array('parent_id' => null, 'model' => null, 'alias' => 'perms'));
+            $permRoot = $aco->save();
+            $permRoot['Aco']['id'] = $aco->id;
+            $log[] = 'Created Aco node for permissions';
+        } else {
+            $permRoot = $permRoot[0];
+        }
+        
+        $perms = Configure::read('Vapor.Permissions');
+        foreach($perms as $perm => $subs) {
+            $node = $aco->node('perms/' . $perm);
+            
+            if(!$node) {
+                $aco->create(array('parent_id' => $permRoot['Aco']['id'], 'model' => null, 'alias' => $perm));
+                $node = $aco->save();
+                $node['Aco']['id'] = $aco->id;
+                $log[] = 'Created Aco node for ' . $perm;
+            }
+            
+            if(!empty($subs)) {
+                foreach($subs as $sub) {
+                    $sub = $aco->node('perms/' . $perm . '/' . $sub);
+                    if(!$sub) {
+                        $aco->create(array('parent_id' => $node['Aco']['id'], 'model' => null, 'alias' => $sub));
+                        $aco->save();
+                        $log[] = 'Created Aco node for ' . $perm . '/' . $sub;
+                    }
+                }
+            }
+        }
+        
+        //log output to debug if necessary
+        if (count($log) > 0 && Configure::read('debug') > 0) {
             foreach($log as $entry) {
                 $this->log($entry, 'debug');
             }
