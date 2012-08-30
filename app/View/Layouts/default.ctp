@@ -50,8 +50,20 @@
         <?php if(Configure::read('debug') == 2): ?>
         
         <section id="debug">
+            <a href="#" id="btnToggleDebug" class="button" data-icon-left="ui-icon-refresh">Toggle Debug Info</a>
             <?php echo $this->element('sql_dump'); ?>
         </section>
+
+        <script>
+            $(function() {
+                //setup handler for debug table
+                $('#btnToggleDebug').on('click', function(e) {
+                    e.preventDefault();
+
+                    $('table.cake-sql-log').toggle();
+                })
+            });
+        </script>
         
         <?php endif; ?>
     </body>
