@@ -3,8 +3,9 @@
 ## User Setup
 
  1. Download the application
- 2. Setup temp directory permissions
+ 2. Setup write permissions
    - `chmod -R 777 app/tmp`
+   - `chmod 777 app/Config app/Config/core.php`
  3. Configure local webserver
  4. Visit `http://vapor.example.com/install`
 
