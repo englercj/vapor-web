@@ -128,6 +128,9 @@ class UsersController extends AppController {
         //logging in
         else if ($this->request->is('post')) {
             if ($this->Auth->login()) {
+                $this->User->id = $this->Auth->user('id');
+                $this->User->saveField('last_login', date('Y-m-d H:i:s'));
+                
                 $this->redirect($this->Auth->redirect());
             } else {
                 $this->setFlash('Your username or password was incorrect.', 'bad');

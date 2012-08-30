@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS users (
        username VARCHAR(255) NOT NULL UNIQUE,
        password CHAR(40) NOT NULL,
        group_id INT(11) NOT NULL,
+       last_login DATETIME,
        created DATETIME,
        modified DATETIME,
        PRIMARY KEY(id),
