@@ -158,6 +158,7 @@ class InstallController extends AppController {
                     $group = $this->Group;
                     $group->id = $su->id;
                     $this->Acl->allow($group, 'controllers');
+                    $this->Acl->allow($group, 'permissions');
 
                     //setup result
                     $result = array('success' => true);
@@ -345,9 +346,9 @@ class InstallController extends AppController {
         }
         
         //Now add custom permissions
-        $permRoot = $aco->node('perms');
+        $permRoot = $aco->node('permissions');
         if (!$permRoot) {
-            $aco->create(array('parent_id' => null, 'model' => null, 'alias' => 'perms'));
+            $aco->create(array('parent_id' => null, 'model' => null, 'alias' => 'permissions'));
             $permRoot = $aco->save();
             $permRoot['Aco']['id'] = $aco->id;
             $log[] = 'Created Aco node for permissions';
@@ -357,7 +358,7 @@ class InstallController extends AppController {
         
         $perms = Configure::read('vapor.permissions');
         foreach($perms as $perm => $subs) {
-            $node = $aco->node('perms/' . $perm);
+            $node = $aco->node('permissions/' . $perm);
             
             if(!$node) {
                 $aco->create(array('parent_id' => $permRoot['Aco']['id'], 'model' => null, 'alias' => $perm));
@@ -368,7 +369,7 @@ class InstallController extends AppController {
             
             if(!empty($subs)) {
                 foreach($subs as $sub) {
-                    $sub = $aco->node('perms/' . $perm . '/' . $sub);
+                    $sub = $aco->node('permissions/' . $perm . '/' . $sub);
                     if(!$sub) {
                         $aco->create(array('parent_id' => $node['Aco']['id'], 'model' => null, 'alias' => $sub));
                         $aco->save();
