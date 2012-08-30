@@ -369,14 +369,15 @@ class InstallController extends AppController {
         $methods = get_class_methods($ctrlclass);
 
         // Add scaffold defaults if scaffolds are being used
-        $properties = get_class_vars($ctrlclass);
+        // NO SCAFFOLDS, THIS CODE ALWAYS RETURNS TRUE ANYWAY
+        /*$properties = get_class_vars($ctrlclass);
         if (array_key_exists('scaffold', $properties)) {
             if ($properties['scaffold'] == 'admin') {
                 $methods = array_merge($methods, array('admin_add', 'admin_edit', 'admin_index', 'admin_view', 'admin_delete'));
             } else {
                 $methods = array_merge($methods, array('add', 'edit', 'index', 'view', 'delete'));
             }
-        }
+        }*/
         return $methods;
     }
 
