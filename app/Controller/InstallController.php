@@ -148,14 +148,14 @@ class InstallController extends AppController {
                     //insert SuperUser Group
                     $this->loadModel('Group');
                     $this->Group->create(array('name' => 'SuperUser'));
-                    $this->Group->save();
+                    $su = $this->Group->save();
 
                     //add ACOs
-                    $this->build_acl();
+                    $this->build_acos();
 
                     //give superuser access to all ACOs
                     $group = $this->Group;
-                    $group->id = 1;
+                    $group->id = $su->id;
                     $this->Acl->allow($group, 'controllers');
 
                     //setup result
@@ -249,7 +249,7 @@ class InstallController extends AppController {
     /////////////////////////////////////////////////////////////////////////
     // ACO builders
     /////////////////////////////////////////////////////////////////////////
-    function build_acl($respond = false) {
+    function build_acos($respond = false) {
         /*if (!Configure::read('debug')) {
             return $this->_stop();
         }*/
