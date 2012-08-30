@@ -1,39 +1,17 @@
 (function($, window, undefined) {
     window.vapor = {
-        initialize: function() {
-            //initialize buttons
-            $('.button').button('destroy').each(function() {
-                var $this = $(this),
-                left = $this.data('icon-left'),
-                right = $this.data('icon-right'),
-                disabled = $this.data('disabled');
-
-                $this.button({
-                    icons: {
-                        primary: left,
-                        secondary: right
-                    },
-                    disabled: disabled
-                });
+        init: function() {
+            //initialize each major component
+            $.each(vapor, function(key, comp) {
+                if(comp && comp.init &&  $.isFunction(comp.init)) {
+                    comp.init();
+                }
             });
-
-            //initialize progressbars
-            $('.progressbar').progressbar('destroy').each(function() {
-                var $this = $(this),
-                val = $this.data('startvalue');
-
-                $this.progressbar({
-                    value: parseInt(val, 10)
-                });
-            });
-            
-            //initialize select boxes
-            $('select').chosen('destroy').chosen();
         },
         temp: {}
     };
     
     $(function() {
-        vapor.initialize();
+        vapor.init();
     });
 })(jQuery, window);
