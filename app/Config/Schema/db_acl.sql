@@ -6,7 +6,7 @@
 # Redistributions of files must retain the above copyright notice.
 # MIT License (http://www.opensource.org/licenses/mit-license.php)
 
-CREATE TABLE acos (
+CREATE TABLE IF NOT EXISTS acos (
   id INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   parent_id INTEGER(10) DEFAULT NULL,
   model VARCHAR(255) DEFAULT '',
@@ -17,7 +17,7 @@ CREATE TABLE acos (
   PRIMARY KEY  (id)
 );
 
-CREATE TABLE aros_acos (
+CREATE TABLE IF NOT EXISTS aros_acos (
   id INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   aro_id INTEGER(10) UNSIGNED NOT NULL,
   aco_id INTEGER(10) UNSIGNED NOT NULL,
@@ -28,7 +28,7 @@ CREATE TABLE aros_acos (
   PRIMARY KEY(id)
 );
 
-CREATE TABLE aros (
+CREATE TABLE IF NOT EXISTS aros (
   id INTEGER(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   parent_id INTEGER(10) DEFAULT NULL,
   model VARCHAR(255) DEFAULT '',
