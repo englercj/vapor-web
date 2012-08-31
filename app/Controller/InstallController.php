@@ -156,7 +156,7 @@ class InstallController extends AppController {
 
                     //give superuser access to all ACOs
                     $group = $this->Group;
-                    $group->id = $su->id;
+                    $group->id = $su['Group']['id'];
                     $this->Acl->allow($group, 'controllers');
                     $this->Acl->allow($group, 'permissions');
 
@@ -236,13 +236,13 @@ class InstallController extends AppController {
             
             //install completed, store a completed install
             //TODO: Checks to ensure it is actually completed.
-            $this->install->create();
+            $this->install_file->create();
         } else if ($this->request->is('get')) {
             $this->layout = 'ajax'; //when page is loaded, mark install completed
 
             //install completed, store a completed install
             //TODO: Checks to ensure it is actually completed.
-            $this->install->create();
+            $this->install_file->create();
         } else if ($this->request->is('post')) {
             return new CakeResponse(array('body' => json_encode(array('success' => 'true')), 'type' => 'json'));
         }
@@ -369,8 +369,8 @@ class InstallController extends AppController {
             
             if(!empty($subs)) {
                 foreach($subs as $sub) {
-                    $sub = $aco->node('permissions/' . $perm . '/' . $sub);
-                    if(!$sub) {
+                    $subNode = $aco->node('permissions/' . $perm . '/' . $sub);
+                    if(!$subNode) {
                         $aco->create(array('parent_id' => $node['Aco']['id'], 'model' => null, 'alias' => $sub));
                         $aco->save();
                         $log[] = 'Created Aco node for ' . $perm . '/' . $sub;
