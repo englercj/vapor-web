@@ -25,7 +25,7 @@
     ?>
     <br/>
     <?php
-        echo $this->Form->end(array('label' =>  'Login', 'class' => 'button ui-button-success floatR'));
+        echo $this->Form->end(array('label' =>  'Login', 'class' => 'button ui-button-primary floatR'));
     ?>
 </div>
 
