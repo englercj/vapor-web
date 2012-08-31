@@ -33,7 +33,7 @@
 </form>
 
 <div class="button-container">
-    <!--<a id="btnBack" href="#" class="button" data-icon-left="ui-icon-arrow-1-w">Back</a>-->
+    <a id="btnBack" href="#" class="button" data-icon-left="ui-icon-arrow-1-w">Back</a>
     <a id="btnNext" href="#" class="button ui-button-primary" 
         data-icon-right="ui-icon-arrow-1-e">Next</a>
 </div>
@@ -55,7 +55,7 @@
             }
         );
         
-        //$('#btnBack').on('click', vapor.install.previousStep);
+        $('#btnBack').on('click', vapor.install.previousStep);
         $('#btnNext').on('click', vapor.install.submitAndCheck);
         
         $('#datasource').on('change', function() {

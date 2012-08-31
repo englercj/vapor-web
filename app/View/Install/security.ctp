@@ -15,6 +15,7 @@
 
 <div class="button-container">
     <!--<a id="btnBack" href="#" class="button" data-icon-left="ui-icon-arrow-1-w">Back</a>-->
+    <a id="btnSkip" href="#" class="button" data-icon-right="ui-icon-arrow-1-e">Skip</a>
     <a id="btnNext" href="#" class="button ui-button-primary" 
         data-icon-right="ui-icon-arrow-1-e" data-disabled="true">Next</a>
 </div>
@@ -23,6 +24,7 @@
     $(function() {
         //$('#btnBack').on('click', vapor.install.previousStep);
         $('#btnNext').on('click', vapor.install.nextStep);
+        $('#btnSkip').on('click', vapor.install.nextStep);
         
         $('#btnGenerate').on('click', function(e) {
             $('#btnGenerate').button('disable');
