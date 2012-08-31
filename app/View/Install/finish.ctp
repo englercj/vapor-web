@@ -4,7 +4,7 @@
 <p>
     YOU'RE DONE!
     <br/>
-    <a href="<?php echo $this->Html->url('/') ?>">Continue To Application -></a>
+    <a href="<?php echo $this->Html->url(array('controller' => 'users', 'action' => 'login')) ?>">Continue To Application -></a>
 </p>
 
 <script type="text/javascript">
