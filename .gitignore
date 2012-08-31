@@ -1,7 +1,7 @@
 vendors/
 app/tmp/
 nbproject/
-app/installed
+app/.installed
 app/Config/database.php
 app/Config/email.php
 *~
