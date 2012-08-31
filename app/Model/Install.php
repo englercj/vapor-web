@@ -13,6 +13,7 @@ class Install extends AppModel {
 
     //Insert Static Data
     function insertStatic($ds) {
+        //TODO: These should use the Models, not SQL inserts
         $this->execSqlFile($ds ,APP . 'Config' . DS . 'Sql' . DS . 'engines.sql');
         $this->execSqlFile($ds, APP . 'Config' . DS . 'Sql' . DS . 'games.sql');
     }
