@@ -36,8 +36,8 @@ class AppController extends Controller {
         //Check if we need to redirect to install pages
         $allowed = array('install');
         
-        $this->install = new File(APP . 'installed');
-        $this->installed = $this->install->exists();
+        $this->install_file = new File(APP . '.installed');
+        $this->installed = $this->install_file->exists();
         
         if (!$this->installed && !(in_array($this->params["controller"], $allowed))) {
             $this->redirect(array('controller' => 'install', 'action' => 'index'));
