@@ -144,7 +144,7 @@ class InstallController extends AppController {
                     $this->Install->createSchema($ds);
 
                     //insert static data files
-                    $this->Install->insertStatic($ds);
+                    $this->_insertStatic();
 
                     //insert SuperUser Group
                     $this->loadModel('Group');
@@ -152,7 +152,7 @@ class InstallController extends AppController {
                     $su = $this->Group->save();
 
                     //add ACOs
-                    $this->build_acos();
+                    $this->_build_acos();
 
                     //give superuser access to all ACOs
                     $group = $this->Group;
@@ -247,11 +247,92 @@ class InstallController extends AppController {
             return new CakeResponse(array('body' => json_encode(array('success' => 'true')), 'type' => 'json'));
         }
     }
+    
+    function _insertStatic() {
+        //Engines
+        $engines = array(
+            array('Engine' => array('id' => 1, 'name' => 'Source')),
+            array('Engine' => array('id' => 2, 'name' => 'Goldsource')),
+            array('Engine' => array('id' => 3, 'name' => 'Unreal')),
+            array('Engine' => array('id' => 4, 'name' => 'Quake')),
+            array('Engine' => array('id' => 5, 'name' => 'Unkown'))
+        );
+        
+        $this->loadModel('Engine');
+        $this->Engine->saveMany($engines);
+        
+        //Games
+        $games = array(
+            array('Game' => array('id' => 1, 'title' => 'Counter-Strike: Source', 'launch' => 'cstrike', 'update' => 'Counter-Strike Source', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 2, 'title' => 'Counter-Strike: Source Beta', 'launch' => 'cstrike', 'update' => 'cssbeta', 'icon' => 'icon', 'url' => 'url', 'beta' => 1, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 3, 'title' => 'Dat of Defeat: Source', 'launch' => 'dod', 'update' => 'dods', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 4, 'title' => 'Half-Life Deathmatch: Source', 'launch' => 'hl1mp', 'update' => null, 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 5, 'title' => 'Half-Life 2: Deathmatch', 'launch' => 'hl2mp', 'update' => 'hl2mp', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 6, 'title' => 'Team Fortress 2', 'launch' => 'tf', 'update' => 'tf', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 7, 'title' => 'Team Fortress 2 Beta', 'launch' => 'tf', 'update' => 'tf_beta', 'icon' => 'icon', 'url' => 'url', 'beta' => 1, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 8, 'title' => 'Left 4 Dead', 'launch' => 'left4dead', 'update' => 'left4dead', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 9, 'title' => 'Left 4 Dead', 'launch' => 'left4dead', 'update' => 'l4d_full', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 10, 'title' => 'Left 4 Dead 2', 'launch' => 'left4dead2', 'update' => 'left4dead2', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 11, 'title' => 'Left 4 Dead 2 Demo', 'launch' => null, 'update' => 'left4dead2_demo', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 12, 'title' => 'Counter-Strike', 'launch' => 'cstrike', 'update' => 'cstrike', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 2)),
+            array('Game' => array('id' => 13, 'title' => 'Counter-Strike Beta', 'launch' => 'cstrike', 'update' => 'cstrike', 'icon' => 'icon', 'url' => 'url', 'beta' => 1, 'external' => 0, 'engine_id' => 2)),
+            array('Game' => array('id' => 14, 'title' => 'Counter-Strike: Condition Zero', 'launch' => 'czero', 'update' => 'czero', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 2)),
+            array('Game' => array('id' => 15, 'title' => 'Deathmatch Classic', 'launch' => 'dmc', 'update' => 'dmc', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 2)),
+            array('Game' => array('id' => 16, 'title' => 'Day of Defeat', 'launch' => 'dod', 'update' => 'dod', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 2)),
+            array('Game' => array('id' => 17, 'title' => 'Half-Life: Opposing Force', 'launch' => 'gearbox', 'update' => 'gearbox', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 2)),
+            array('Game' => array('id' => 18, 'title' => 'Ricochet', 'launch' => 'ricochet', 'update' => 'ricochet', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 2)),
+            array('Game' => array('id' => 19, 'title' => 'Team Fortress Classic', 'launch' => 'tfc', 'update' => 'tfc', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 2)),
+            array('Game' => array('id' => 20, 'title' => 'Half-Life', 'launch' => 'valve', 'update' => 'valve', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 2)),
+            array('Game' => array('id' => 21, 'title' => 'Dark Messiah', 'launch' => 'mmdarkmessiah', 'update' => 'darkmessiah', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 22, 'title' => 'Garry\'s Mod', 'launch' => 'garrysmod', 'update' => 'garrysmod', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 23, 'title' => 'Red Orchestra: Ostfront 41-45', 'launch' => 'redorchestra', 'update' => 'redorchestra', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 3)),
+            array('Game' => array('id' => 24, 'title' => 'Red Orchestra: Ostfront 41-45 Beta', 'launch' => 'redorchestra', 'update' => 'redorchestra_beta', 'icon' => 'icon', 'url' => 'url', 'beta' => 1, 'external' => 0, 'engine_id' => 3)),
+            array('Game' => array('id' => 25, 'title' => 'Darkest Hour: Europe 44-45', 'launch' => null, 'update' => 'darkesthour', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 3)),
+            array('Game' => array('id' => 26, 'title' => 'Mare Nostrum', 'launch' => null, 'update' => 'marenostrum', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 3)),
+            array('Game' => array('id' => 27, 'title' => 'The Ship', 'launch' => 'ship', 'update' => 'ship', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 28, 'title' => 'SiN 1', 'launch' => null, 'update' => 'sin', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 4)),
+            array('Game' => array('id' => 29, 'title' => 'ThreadSpace: Hyperbol', 'launch' => null, 'update' => 'tshb', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 5)),
+            array('Game' => array('id' => 30, 'title' => 'Sven Co-op', 'launch' => 'svencoop', 'update' => 'valve', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 1, 'engine_id' => 2)),
+            array('Game' => array('id' => 31, 'title' => 'Firearms', 'launch' => 'firearms', 'update' => 'valve', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 1, 'engine_id' => 2)),
+            array('Game' => array('id' => 32, 'title' => 'Natural Selection', 'launch' => 'ns', 'update' => 'valve', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 1, 'engine_id' => 2)),
+            array('Game' => array('id' => 33, 'title' => 'Action Half-Life', 'launch' => 'action', 'update' => 'valve', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 1, 'engine_id' => 2)),
+            array('Game' => array('id' => 34, 'title' => 'Brain Bread', 'launch' => 'brainbread', 'update' => 'valve', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 1, 'engine_id' => 2)),
+            array('Game' => array('id' => 35, 'title' => 'Earth\'s Special Forces', 'launch' => 'esf', 'update' => 'valve', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 1, 'engine_id' => 2)),
+            array('Game' => array('id' => 36, 'title' => 'Hostile Intent', 'launch' => 'hostileintent', 'update' => 'valve', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 1, 'engine_id' => 2)),
+            array('Game' => array('id' => 37, 'title' => 'International Online Soccer', 'launch' => 'ios', 'update' => 'valve', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 1, 'engine_id' => 2)),
+            array('Game' => array('id' => 38, 'title' => 'The Specialists', 'launch' => 'ts', 'update' => 'valve', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 1, 'engine_id' => 2)),
+            array('Game' => array('id' => 39, 'title' => 'Half-Life 2: Capture The Flag', 'launch' => 'hl2ctf', 'update' => null, 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 1, 'engine_id' => 1)),
+            array('Game' => array('id' => 40, 'title' => 'Source Forts', 'launch' => 'sourceforts', 'update' => 'episode1,hl2mp', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 1, 'engine_id' => 1)),
+            array('Game' => array('id' => 41, 'title' => 'Insurgency', 'launch' => 'insurgency', 'update' => 'insurgency', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 42, 'title' => 'GoldenEye: Source', 'launch' => 'gesource', 'update' => 'orangebox', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 1, 'engine_id' => 1)),
+            array('Game' => array('id' => 43, 'title' => 'Fortress Forever', 'launch' => 'ff', 'update' => null, 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 1, 'engine_id' => 1)),
+            array('Game' => array('id' => 44, 'title' => 'Half-Life 2: Coop', 'launch' => 'hl2coop', 'update' => null, 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 1, 'engine_id' => 1)),
+            array('Game' => array('id' => 45, 'title' => 'Age of Chivalry', 'launch' => null, 'update' => 'ageofchivalry', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 46, 'title' => 'Alien Swarm', 'launch' => null, 'update' => 'alienswarm', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 47, 'title' => 'D.I.P.R.I.P. Warm Up', 'launch' => null, 'update' => 'diprip', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 48, 'title' => 'Killing Floor', 'launch' => null, 'update' => 'killingfloor', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 3)),
+            array('Game' => array('id' => 49, 'title' => 'Killing Floor Beta', 'launch' => null, 'update' => 'killingfloor_beta', 'icon' => 'icon', 'url' => 'url', 'beta' => 1, 'external' => 0, 'engine_id' => 3)),
+            array('Game' => array('id' => 50, 'title' => 'Defence Alliance 2', 'launch' => null, 'update' => 'defencealliance2', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 3)),
+            array('Game' => array('id' => 51, 'title' => 'Monday Night Combat', 'launch' => null, 'update' => 'mondaynightcombat', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 3)),
+            array('Game' => array('id' => 52, 'title' => 'Dystopia', 'launch' => null, 'update' => 'dystopia', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 53, 'title' => 'Eternal Silence', 'launch' => null, 'update' => 'esmod', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 54, 'title' => 'Pirates Vikings & Knights II', 'launch' => null, 'update' => 'pvkii', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 55, 'title' => 'Smashball', 'launch' => null, 'update' => 'smashball', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 56, 'title' => 'Synergy', 'launch' => null, 'update' => 'synergy', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 57, 'title' => 'Zombie Panic! Source', 'launch' => null, 'update' => 'zps', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 1)),
+            array('Game' => array('id' => 58, 'title' => 'Serious Sam HD', 'launch' => null, 'update' => 'seriossamhdse', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 5)),
+            array('Game' => array('id' => 59, 'title' => 'Aliens vs. Predator', 'launch' => null, 'update' => 'alienvspredator', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 5)),
+            array('Game' => array('id' => 60, 'title' => 'Natural Selection 2', 'launch' => null, 'update' => 'naturalselection2', 'icon' => 'icon', 'url' => 'url', 'beta' => 0, 'external' => 0, 'engine_id' => 5))
+        );
+        
+        $this->loadModel('Game');
+        $this->Engine->saveMany($games);
+    }
 
     /////////////////////////////////////////////////////////////////////////
     // ACO builders
     /////////////////////////////////////////////////////////////////////////
-    function build_acos($respond = false) {
+    function _build_acos($respond = false) {
         /*if (!Configure::read('debug')) {
             return $this->_stop();
         }*/

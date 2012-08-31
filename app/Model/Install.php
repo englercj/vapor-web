@@ -11,13 +11,6 @@ class Install extends AppModel {
         $this->execSqlFile($ds, APP . 'Config' . DS . 'Schema' . DS . 'db_acl.sql');
     }
 
-    //Insert Static Data
-    function insertStatic($ds) {
-        //TODO: These should use the Models, not SQL inserts
-        $this->execSqlFile($ds ,APP . 'Config' . DS . 'Sql' . DS . 'engines.sql');
-        $this->execSqlFile($ds, APP . 'Config' . DS . 'Sql' . DS . 'games.sql');
-    }
-
     //Save database configuration
     function saveDb($data = array()) {
         return $this->saveX(
