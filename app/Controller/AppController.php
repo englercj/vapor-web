@@ -70,4 +70,8 @@ class AppController extends Controller {
     public function setFlash($message, $key = 'flash', $params = array()) {
         $this->Session->setFlash(__($message), 'flash', $params, $key);
     }
+    
+    public function jsonResponse($body = array()) {
+        return new CakeResponse(array('body' => json_encode($body), 'type' => 'json'));
+    }
 }

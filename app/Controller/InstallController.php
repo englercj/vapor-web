@@ -96,7 +96,7 @@ class InstallController extends AppController {
             $result['codes']['salt'] = $this->Install->saveSalt();
             $result['codes']['seed'] = $this->Install->saveCipherSeed();
             
-            return new CakeResponse(array('body' => json_encode($result), 'type' => 'json'));
+            return $this->jsonResponse($result);
         }
     }
 
@@ -165,7 +165,7 @@ class InstallController extends AppController {
                 }
             }
 
-            return new CakeResponse(array('body' => json_encode($result), 'type' => 'json'));
+            return $this->jsonResponse($result);
         }
     }
 
@@ -181,7 +181,7 @@ class InstallController extends AppController {
             }
 
             $result = array('success' => true);
-            return new CakeResponse(array('body' => json_encode($result), 'type' => 'json'));
+            return $this->jsonResponse($result);
         }
     }
 
@@ -205,7 +205,7 @@ class InstallController extends AppController {
                 $result = array('success' => false, 'message' => $e->getMessage(), 'exception' => $e);
             }
 
-            return new CakeResponse(array('body' => json_encode($result), 'type' => 'json'));
+            return $this->jsonResponse($result);
         }
     }
 
@@ -226,7 +226,7 @@ class InstallController extends AppController {
                 $result = array('success' => false, 'message' => $e->getMessage(), 'exception' => $e);
             }
 
-            return new CakeResponse(array('body' => json_encode($result), 'type' => 'json'));
+            return $this->jsonResponse($result);
         }
     }
     
@@ -244,7 +244,7 @@ class InstallController extends AppController {
             //TODO: Checks to ensure it is actually completed.
             $this->install_file->create();
         } else if ($this->request->is('post')) {
-            return new CakeResponse(array('body' => json_encode(array('success' => 'true')), 'type' => 'json'));
+            return $this->jsonResponse(array('success' => 'true'));
         }
     }
     
@@ -468,7 +468,7 @@ class InstallController extends AppController {
         }
         
         if($respond) //for running a GET to this action, will be removed on release
-            return new CakeResponse(array('body' => json_encode(array('success' => true)), 'type' => 'json'));
+            return $this->jsonResponse(array('success' => true));
     }
 
     function _getClassMethods($ctrlName = null) {
