@@ -68,7 +68,7 @@ class AppController extends Controller {
     
     //utility method to make setFlash more usable for how the views use it
     public function setFlash($message, $key = 'flash', $params = array()) {
-        $this->Session->setFlash(__($message), 'flash', $params, $key);
+        $this->Session->setFlash(__($message), 'flash/flash', $params, $key);
     }
     
     public function jsonResponse($body = array()) {
