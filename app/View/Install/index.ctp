@@ -10,8 +10,7 @@
 ?>
 <div class="ui-corner-all ui-state-<?php echo ($check['pass'] ? 'success' : 'error'); ?>">
     <p>
-        <span class="ui-icon ui-icon-<?php echo ($check['pass'] ? 'check' : 'alert'); ?>"
-              style="float: left; margin-right: .3em;"></span>
+        <span class="ui-icon ui-icon-<?php echo ($check['pass'] ? 'check' : 'alert'); ?>"></span>
               
         <strong><?php echo $check['title']; ?></strong>
         

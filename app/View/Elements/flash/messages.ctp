@@ -11,7 +11,7 @@
             if($this->Session->check('Message.' . $key)) {
                 echo '<div class="' . $data['classes'] . '">';
                     echo '<p>';
-                        echo '<span class="ui-icon ' . $data['icon'] . '" style="float:left;margin-right:0.3em;"></span>';
+                        echo '<span class="ui-icon ' . $data['icon'] . '"></span>';
                         echo $this->Session->flash($key);
                     echo '</p>';
                 echo '</div>';
