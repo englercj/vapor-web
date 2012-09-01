@@ -36,7 +36,12 @@
     <body>
         <header>
             <h1>Vapor</h1>
-            <?php echo $this->element('messages'); ?>
+            
+            <?php 
+                echo $this->element('messages');
+                echo $this->element('common/userbar');
+                echo $this->element('common/navbar');
+            ?>
         </header>
 
         <section>
@@ -44,7 +49,7 @@
         </section>
 
         <footer>
-            Footer Stuff
+            <?php echo $this->element('common/footer'); ?>
         </footer>
         
         <?php if(Configure::read('debug') == 2): ?>
