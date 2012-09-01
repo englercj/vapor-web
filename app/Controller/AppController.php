@@ -18,7 +18,7 @@ class AppController extends Controller {
             'logoutRedirect' => array('controller' => 'users', 'action' => 'login'),
             'loginError' => 'Your username or password is incorrect.',
             'authError' => 'You do not have access to that page.',
-            'flash' => array('element' => 'flash', 'key' => 'bad'),
+            'flash' => array('element' => 'flash/flash', 'key' => 'bad'),
             'autoRedirect' => false
         ),
         'Session'

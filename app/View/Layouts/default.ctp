@@ -38,7 +38,7 @@
             <h1>Vapor</h1>
             
             <?php 
-                echo $this->element('messages');
+                echo $this->element('flash/messages');
                 echo $this->element('common/userbar');
                 echo $this->element('common/navbar');
             ?>
