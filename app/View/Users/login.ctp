@@ -1,5 +1,5 @@
 <h2><span class="blue">VaporCP</span> Login</h2>
-<?php echo $this->element('messages'); ?>
+<?php echo $this->element('flash/messages'); ?>
 <br class="clear"/>
 
 <img src="/img/icons/128/lock.png" alt="Login" id="login-lock" />

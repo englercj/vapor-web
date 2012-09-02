@@ -29,6 +29,38 @@
             
             //initialize select boxes
             $('select').chosen('destroy').chosen();
+            
+            //make icons change on hover
+            $('.icon-hover-blue').hover(
+                function(e) {
+                    var $this = $(this), $elm, cls, blu;
+                    
+                    if($this.data('icon-element'))
+                        $elm = $this.find($this.data('icon-element'));
+                    else
+                        $elm = $this;
+                    
+                    cls = $elm.prop('class').match(/icon-[\d]+-[\w]+/)[0],
+                    blu = cls + '-blue';
+                    
+                    if(cls)
+                        $elm.removeClass(cls).addClass(blu);
+                },
+                function(e) {
+                    var $this = $(this), $elm, cls, blu;
+                    
+                    if($this.data('icon-element'))
+                        $elm = $this.find($this.data('icon-element'));
+                    else
+                        $elm = $this;
+                    
+                    blu = $elm.prop('class').match(/icon-[\d]+-[\w]+-blue/)[0],
+                    cls = blu.replace('-blue', '');
+                    
+                    if(blu)
+                        $elm.removeClass(blu).addClass(cls);
+                }
+            );
         },
         showLoader: function($target) {
             $target = vapor.util.jquerify($target, 'body');

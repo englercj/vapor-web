@@ -1,0 +1,28 @@
+/* Input styles */
+input::-webkit-input-placeholder { color:@light-gray; }
+input:-moz-placeholder { color:@light-gray; }
+input:-ms-input-placeholder { color:@light-gray; }
+
+label { display:block; margin:5px 5px 0 0; }
+
+select { width:260px; }
+input { .helvetica }
+input[type="text"], input[type="password"] { width:250px; padding:8px; }
+
+/* Validtion Styles */
+form div.invalid.ui-state-error {
+    position:absolute;
+    margin-left:302px;
+    margin-top:-30px;
+}
+
+div.invalid p {
+    color:@white;
+    margin:3px 10px;
+}
+
+input.invalid { 
+    border-color:rgba(236, 20, 35, 0.8);
+    box-shadow:0 1px 3px rgba(0, 0, 0, 0.1) inset, 0 0 8px rgba(236, 20, 35, 0.6);
+    outline:0 none;
+}

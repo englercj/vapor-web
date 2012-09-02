@@ -38,13 +38,13 @@
             <h1>Vapor</h1>
             
             <?php 
-                echo $this->element('flash/messages');
                 echo $this->element('common/userbar');
+                echo $this->element('flash/messages');
                 echo $this->element('common/navbar');
             ?>
         </header>
 
-        <section>
+        <section id="content">
             <?php echo $this->fetch('content'); ?>
         </section>
 
