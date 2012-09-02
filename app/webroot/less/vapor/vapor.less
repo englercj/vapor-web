@@ -6,7 +6,7 @@ body {
     
     font-size:1em;
     color:@dark-gray;
-    .helvetica
+    .helvetica()
 }
 
 /* Header styles */
@@ -46,8 +46,8 @@ header {
     margin:0 auto;
 }
 header > h1 {
-    height:100px;
-    text-indent:-999999999px;
+    height:110px;
+    text-indent:-99999px;
     background:left top url(/img/banner.png) no-repeat;
     padding-left:65px;
     font-size:4em;
@@ -64,7 +64,7 @@ nav > ul {
     border-top:solid 1px #4a4a4a;
 
     .border-radius(5px, 5px, 0, 0);
-    .grad-gray
+    .grad-gray();
 }
 nav > ul > li {
     float:left;
@@ -89,13 +89,13 @@ nav > ul > li > a:hover {
     color:#00b1f5;
     text-decoration:none;
 
-    .grad-dark-gray
+    .grad-dark-gray();
 }
 
 nav > ul > li > a > span { margin:2px auto; }
 
 #content {
-    min-height:200px;
+    min-height:500px;
     width:1180px;
 
     padding:10px;
@@ -111,5 +111,7 @@ footer {
     padding:10px;
     margin:0 auto;
 
-    background:#181818;
+    //background:#181818;
+    .border-radius(0, 0, 5px, 5px);
+    .grad-blue();
 }
