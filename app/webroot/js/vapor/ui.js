@@ -31,7 +31,29 @@
             $('select').chosen('destroy').chosen();
             
             //make icons change on hover
-            $('.icon-hover-blue').hover(
+            $('[data-hover-element]').hover(
+                function(e) {
+                    var $this = $(this),
+                    elm = $this.data('hover-element'),
+                    $elm;
+                    
+                    if(elm == 'this') $elm = $this;
+                    else $elm = $this.find(elm);
+                    
+                    $elm.addClass('hover');
+                },
+                function(e) {
+                    var $this = $(this),
+                    elm = $this.data('hover-element'),
+                    $elm;
+                    
+                    if(elm == 'this') $elm = $this;
+                    else $elm = $this.find(elm);
+                    
+                    $elm.removeClass('hover');
+                }
+            );
+            /*$('.icon-hover-blue').hover(
                 function(e) {
                     var $this = $(this), $elm, cls, blu;
                     
@@ -60,7 +82,7 @@
                     if(blu)
                         $elm.removeClass(blu).addClass(cls);
                 }
-            );
+            );*/
         },
         showLoader: function($target) {
             $target = vapor.util.jquerify($target, 'body');

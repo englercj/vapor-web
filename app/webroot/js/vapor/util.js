@@ -33,4 +33,11 @@
             return $o;
         }
     };
+    
+    //shortcut for filtering based on existence of data attribute
+    $.fn.withData = function(dat) {
+        return this.filter(function(i) {
+            return $(this).data(dat) !== undefined;
+        });
+    };
 })(jQuery, window);
