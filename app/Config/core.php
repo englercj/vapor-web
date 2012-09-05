@@ -174,7 +174,7 @@
  */
 	Configure::write('Session', array(
 		'defaults' => 'php',
-                'cookie' => 'vapor_session'
+                'cookie' => 'vapor[session]'
 	));
 
 /**
