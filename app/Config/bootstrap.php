@@ -182,6 +182,17 @@ CakeLog::config('error', array(
 ));
 
 /**
+ * Remember Me Configuration 
+ */
+Configure::write('AutoLogin', array(
+    'cookieName' => 'rememberme',
+    'expires' => '+2 weeks',
+    'active' => true,
+    'redirect' => false,
+    'requirePrompt' => true
+));
+
+/**
  * Load Vapor configuration file
  */
 Configure::load('vapor');

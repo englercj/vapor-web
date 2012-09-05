@@ -9,6 +9,7 @@ class AppController extends Controller {
 
     public $components = array(
         'Acl',
+        'AutoLogin',
         'Auth' => array(
             'authorize' => array(
                 'Actions' => array('actionPath' => 'controllers')
@@ -21,7 +22,8 @@ class AppController extends Controller {
             'flash' => array('element' => 'flash/flash', 'key' => 'bad'),
             'autoRedirect' => false
         ),
-        'Session'
+        'Session',
+        'Cookie'
     );
     
     public $helpers = array('Html', 'Form', 'Session', 'AssetCompress.AssetCompress');
@@ -32,6 +34,9 @@ class AppController extends Controller {
         if(!$this->Session->valid()) {
             $this->Session->renew();
         }
+        
+        //Set cookie names
+        $this->Cookie->name = 'vapor';
         
         //Check if we need to redirect to install pages
         $allowed = array('install');

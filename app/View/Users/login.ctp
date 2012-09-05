@@ -25,6 +25,7 @@
     ?>
     <br/>
     <?php
+        echo $this->Form->input('auto_login', array('type' => 'checkbox', 'label' => 'Remember Me'));
         echo $this->Form->end(array('label' =>  'Login', 'class' => 'button ui-button-primary floatR'));
     ?>
 </div>
