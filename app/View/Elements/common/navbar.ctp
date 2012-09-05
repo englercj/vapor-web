@@ -7,8 +7,8 @@
             </a>
         </li>
         <li>
-            <a href="/gameservers" class="<?php if($this->params['controller'] == 'gameservers') echo 'selected'; ?>" data-hover-element="span.icon-32">
-                <span class="icon-32 icon-32-servers<?php if($this->params['controller'] == 'gameservers') echo '-blue'; ?>"></span>
+            <a href="/servers" class="<?php if($this->params['controller'] == 'servers') echo 'selected'; ?>" data-hover-element="span.icon-32">
+                <span class="icon-32 icon-32-servers<?php if($this->params['controller'] == 'servers') echo '-blue'; ?>"></span>
                 Servers
             </a>
         </li>
@@ -19,8 +19,8 @@
             </a>
         </li>
         <li>
-            <a href="/servers" class="<?php if($this->params['controller'] == 'servers') echo 'selected'; ?>" data-hover-element="span.icon-32">
-                <span class="icon-32 icon-32-network<?php if($this->params['controller'] == 'server') echo '-blue'; ?>"></span>
+            <a href="/infrastructure" class="<?php if($this->params['controller'] == 'infrastructure') echo 'selected'; ?>" data-hover-element="span.icon-32">
+                <span class="icon-32 icon-32-network<?php if($this->params['controller'] == 'infrastructure') echo '-blue'; ?>"></span>
                 Infrastructure
             </a>
         </li>
