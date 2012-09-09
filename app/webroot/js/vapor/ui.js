@@ -30,6 +30,9 @@
             //initialize select boxes
             $('select').chosen('destroy').chosen();
             
+            //initialize check boxes
+            $('input[type="checkbox"]').checkbox();
+            
             //make icons change on hover
             $('[data-hover-element]').hover(
                 function(e) {

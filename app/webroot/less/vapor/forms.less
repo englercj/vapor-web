@@ -9,6 +9,56 @@ select { width:260px; }
 input { .helvetica }
 input[type="text"], input[type="password"] { width:250px; padding:8px; }
 
+.cb-container {
+    height:32px;
+    box-shadow:0 1px 3px rgba(0, 0, 0, 0.1) inset;
+
+    background:#FFF;
+    border:solid 1px #CCC;
+    box-shadow:0 1px 3px rgba(0, 0, 0, 0.1) inset;
+    color:#444;
+
+    border-radius:3px;
+    width:300px;
+
+    cursor:pointer;
+}
+
+.cb-container.cb-focused {
+    border-color: rgba(82, 168, 236, 0.8);
+    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+    -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+/*.cb-checked {
+    border-color: rgba(82, 236, 100, 0.8);
+    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 236, 100, 0.6);
+    -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 236, 100, 0.6);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 236, 100, 0.6);
+}*/
+
+.cb-checked .cb-box {
+    background:1px 1px url(/img/icons/16/check.png) no-repeat;
+}
+
+.cb-box {
+    float:left;
+    height:14px;
+    width:14px;
+
+    border:solid 1px #444;
+
+    margin:6px;
+    padding:2px;
+    border-radius:3px;
+}
+
+.cb-label {
+    float:left;
+    padding:6px 8px;
+}
+
 /* Validtion Styles */
 form div.invalid.ui-state-error {
     position:absolute;
