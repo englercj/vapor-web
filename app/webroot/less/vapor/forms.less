@@ -11,35 +11,39 @@ input[type="text"], input[type="password"] { width:250px; padding:8px; }
 
 .cb-container {
     height:32px;
-    box-shadow:0 1px 3px rgba(0, 0, 0, 0.1) inset;
+    .box-shadow(0, 1px, 3px, 0, rgba(0, 0, 0, 0.1), inset);
 
     background:#FFF;
     border:solid 1px #CCC;
-    box-shadow:0 1px 3px rgba(0, 0, 0, 0.1) inset;
-    color:#444;
+    color:#AAA;
 
-    border-radius:3px;
+    .border-radius(all, 3px);
     width:300px;
 
     cursor:pointer;
 }
 
-.cb-container.cb-focused {
-    border-color: rgba(82, 168, 236, 0.8);
-    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
-    -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+.cb-checked {
+    color:#444;
 }
 
-/*.cb-checked {
+/*
+.cb-checked {
     border-color: rgba(82, 236, 100, 0.8);
-    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 236, 100, 0.6);
-    -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 236, 100, 0.6);
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 236, 100, 0.6);
-}*/
+}
+
+.cb-container.cb-focused {
+    border-color: rgba(82, 168, 236, 0.8);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+*/
 
 .cb-checked .cb-box {
     background:1px 1px url(/img/icons/16/check.png) no-repeat;
+    border:solid 1px #444;
+
+    .animation(border-pulse-blue, 1s);
 }
 
 .cb-box {
@@ -47,16 +51,24 @@ input[type="text"], input[type="password"] { width:250px; padding:8px; }
     height:14px;
     width:14px;
 
-    border:solid 1px #444;
+    border:solid 1px #AAA;
+    .box-shadow(0, 1px, 3px, 0, rgba(0, 0, 0, 0.1), inset);
 
     margin:6px;
     padding:2px;
-    border-radius:3px;
+    .border-radius(all, 3px);
 }
 
 .cb-label {
     float:left;
-    padding:6px 8px;
+    padding:7px 8px;
+
+    .box-shadow(0, 1px, 3px, 0, rgba(0, 0, 0, 0.1), inset);
+    border-left:solid 1px #CCC;
+    font-size:0.9em;
+    width:250px;
+
+    .no-select();
 }
 
 /* Validtion Styles */
@@ -73,6 +85,7 @@ div.invalid p {
 
 input.invalid { 
     border-color:rgba(236, 20, 35, 0.8);
-    box-shadow:0 1px 3px rgba(0, 0, 0, 0.1) inset, 0 0 8px rgba(236, 20, 35, 0.6);
+
+    .box-shadow(dual, 0, 1px, 3px, 0, rgba(0, 0, 0, 0.1), inset, 0, 0, 8px, 0, rgba(236, 20, 35, 0.6));
     outline:0 none;
 }
