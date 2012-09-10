@@ -14,7 +14,9 @@
 
 .centered { text-align:center; }
 
-.helvetica { font-family:"Helvetica Neue",Helvetica,Arial,sans-serif; }
+.font-helvetica { font-family:Helvetica,Arial,'DejaVu Sans','Liberation Sans',Freesans,sans-serif; }
+.font-gothic { font-family:'Century Gothic',futura,'URW Gothic L',Verdana,sans-serif; }
+.font-georgia { font-family:Constantia,Georgia,'Nimbus Roman No9 L',serif; }
 
 .no-select {
     -webkit-touch-callout:none;
@@ -83,6 +85,10 @@
     -moz-box-shadow:@x @y @blur @spread @color, @x2 @y2 @blur2 @spread2 @color2;
     -webkit-box-shadow:@x @y @blur @spread @color, @x2 @y2 @blur2 @spread2 @color2;
     -o-box-shadow:@x @y @blur @spread @color, @x2 @y2 @blur2 @spread2 @color2;
+}
+
+.text-shadow(@x: 1px, @y: 1px, @blur: 0, @color: #111) {
+    text-shadow:@arguments;
 }
 
 /* Gradients */

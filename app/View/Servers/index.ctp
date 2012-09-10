@@ -8,7 +8,7 @@
 			<th><?php echo $this->Paginator->sort('port'); ?></th>
 			<th><?php echo $this->Paginator->sort('created'); ?></th>
 			<th><?php echo $this->Paginator->sort('modified'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
+            <th class="actions"><span><?php echo __('Actions'); ?></span></th>
 	</tr>
 	<?php
 	foreach ($servers as $server): ?>

@@ -11,7 +11,7 @@
 			<th><?php echo $this->Paginator->sort('beta'); ?></th>
 			<th><?php echo $this->Paginator->sort('external'); ?></th>
 			<th><?php echo $this->Paginator->sort('engine_id'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
+			<th class="actions"><span><?php echo __('Actions'); ?></span></th>
 	</tr>
 	<?php
 	foreach ($games as $game): ?>

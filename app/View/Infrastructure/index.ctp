@@ -9,7 +9,7 @@
             <th><?php echo $this->Paginator->sort('address_id'); ?></th>
             <th><?php echo $this->Paginator->sort('created'); ?></th>
             <th><?php echo $this->Paginator->sort('modified'); ?></th>
-            <th class="actions"><?php echo __('Actions'); ?></th>
+            <th class="actions"><span><?php echo __('Actions'); ?></span></th>
         </tr>
         <?php foreach ($infrastructure as $node): ?>
             <tr>
