@@ -1,50 +1,25 @@
 <div class="servers index">
-	<h2><?php echo __('Servers'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
-	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('name'); ?></th>
-			<th><?php echo $this->Paginator->sort('host'); ?></th>
-			<th><?php echo $this->Paginator->sort('port'); ?></th>
-			<th><?php echo $this->Paginator->sort('created'); ?></th>
-			<th><?php echo $this->Paginator->sort('modified'); ?></th>
-            <th class="actions"><span><?php echo __('Actions'); ?></span></th>
-	</tr>
-	<?php
-	foreach ($servers as $server): ?>
-	<tr>
-		<td><?php echo h($server['Server']['id']); ?>&nbsp;</td>
-		<td><?php echo h($server['Server']['name']); ?>&nbsp;</td>
-		<td><?php echo h($server['Server']['host']); ?>&nbsp;</td>
-		<td><?php echo h($server['Server']['port']); ?>&nbsp;</td>
-		<td><?php echo h($server['Server']['created']); ?>&nbsp;</td>
-		<td><?php echo h($server['Server']['modified']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $server['Server']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $server['Server']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $server['Server']['id']), null, __('Are you sure you want to delete # %s?', $server['Server']['id'])); ?>
-		</td>
-	</tr>
-<?php endforeach; ?>
-	</table>
-	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-	));
-	?>	</p>
-
-	<div class="paging">
-	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-	?>
-	</div>
+    <h2><?php echo __('Servers'); ?></h2>
+    <?php
+        echo $this->element('datagrid/grid', array(
+            'columns' => array(
+                'id' => array('sortable' => true),
+                'name' => array('sortable' => true),
+                'host' => array('sortable' => true)
+            ),
+            'actions' => array(
+                'view',
+                'edit',
+                'delete'
+            ),
+            'data' => $servers,
+            'model' => 'Server'
+        ));
+    ?>
 </div>
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Server'), array('action' => 'add')); ?></li>
-	</ul>
+    <h3><?php echo __('Actions'); ?></h3>
+    <ul>
+        <li><?php echo $this->Html->link(__('New Server'), array('action' => 'add')); ?></li>
+    </ul>
 </div>
