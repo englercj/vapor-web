@@ -33,9 +33,5 @@
         <section id="install" class="ui-corner-all ui-helper-clearfix">
             <?php echo $this->fetch('content'); ?>
         </section>
-
-        <footer>
-            
-        </footer>
     </body>
 </html>
