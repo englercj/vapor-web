@@ -35,7 +35,7 @@
                 echo '<td class="actions">';
 
                 foreach($actions as $action => $opts) {
-                    $opts['type'] = (isset($opts['type']) ? $opts['type'] : false);
+                    $opts['classes'] = (isset($opts['classes']) ? ' ' . $opts['classes'] : '');
                     $opts['post'] = (isset($opts['post']) ? $opts['post'] : false);
                     $opts['title'] = (isset($opts['title']) ? $opts['title'] : Inflector::humanize($action));
                     
@@ -46,7 +46,9 @@
                             ),
                             array(
                                 'data-id' => $dat['id'],
-                                'class' => 'button' . ($opts['post'] ? ' ajax-post' : '') . ($opts['type'] ? ' ui-button-' . $opts['type'] : '')
+                                'data-icon-left' => (isset($opts['icon-left']) ? $opts['icon-left'] : ''),
+                                'data-icon-right' => (isset($opts['icon-right']) ? $opts['icon-right'] : ''),
+                                'class' => 'button' . ($opts['post'] ?  ' ajax-post' : '') . $opts['classes']
                             )
                         );
                 }

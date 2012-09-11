@@ -8,9 +8,9 @@
             'group_id' => array('sortable' => true)
         ),
         'actions' => array(
-            'view' => array(),
-            'edit' => array(),
-            'delete' => array('post' => true, 'type' => 'error')
+            'view' => array('icon-left' => 'ui-icon-search'),
+            'edit' => array('icon-left' => 'ui-icon-pencil'),
+            'delete' => array('classes' => 'ui-button-error', 'icon-left' => 'ui-icon-trash', 'post' => true)
         ),
         'data' => $users,
         'model' => 'User'
