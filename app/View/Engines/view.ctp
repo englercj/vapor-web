@@ -31,42 +31,30 @@
 </div>
 <div class="related">
 	<h3><?php echo __('Related Games'); ?></h3>
-	<?php if (!empty($engine['Game'])): ?>
-	<table cellpadding = "0" cellspacing = "0">
-	<tr>
-		<th><?php echo __('Id'); ?></th>
-		<th><?php echo __('Title'); ?></th>
-		<th><?php echo __('Launch'); ?></th>
-		<th><?php echo __('Update'); ?></th>
-		<th><?php echo __('Icon'); ?></th>
-		<th><?php echo __('Url'); ?></th>
-		<th><?php echo __('Beta'); ?></th>
-		<th><?php echo __('External'); ?></th>
-		<th><?php echo __('Engine Id'); ?></th>
-		<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	<?php
-		$i = 0;
-		foreach ($engine['Game'] as $game): ?>
-		<tr>
-			<td><?php echo $game['id']; ?></td>
-			<td><?php echo $game['title']; ?></td>
-			<td><?php echo $game['launch']; ?></td>
-			<td><?php echo $game['update']; ?></td>
-			<td><?php echo $game['icon']; ?></td>
-			<td><?php echo $game['url']; ?></td>
-			<td><?php echo $game['beta']; ?></td>
-			<td><?php echo $game['external']; ?></td>
-			<td><?php echo $game['engine_id']; ?></td>
-			<td class="actions">
-				<?php echo $this->Html->link(__('View'), array('controller' => 'games', 'action' => 'view', $game['id'])); ?>
-				<?php echo $this->Html->link(__('Edit'), array('controller' => 'games', 'action' => 'edit', $game['id'])); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('controller' => 'games', 'action' => 'delete', $game['id']), null, __('Are you sure you want to delete # %s?', $game['id'])); ?>
-			</td>
-		</tr>
-	<?php endforeach; ?>
-	</table>
-<?php endif; ?>
+	<?php 
+            if (!empty($engine['Game'])) {
+                echo $this->element('datagrid/grid', array(
+                    'columns' => array(
+                        'id' => array(),
+                        'title' => array(),
+                        'launch' => array(),
+                        'update' => array(),
+                        'icon' => array(),
+                        'url' => array(),
+                        'beta' => array(),
+                        'external' => array(),
+                        'engine_id' => array()
+                    ),
+                    'actions' => array(
+                        'view' => array('icon-left' => 'ui-icon-search'),
+                        'edit' => array('icon-left' => 'ui-icon-pencil'),
+                        'delete' => array('classes' => 'ui-button-error', 'icon-left' => 'ui-icon-trash', 'post' => true)
+                    ),
+                    'data' => $engine['Game'],
+                    'paginate' => false
+                ));
+            }
+        ?>
 
 	<div class="actions">
 		<ul>
